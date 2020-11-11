@@ -13,8 +13,11 @@
 #### O que foi feito
 
 - Criado o database com 3 tabelas:
+    - usuarios
     - equipes
     - partidas
+        - gols 
+        - resultados
     - jogadores
 
 - Executado:
@@ -24,4 +27,6 @@
         - bin/cake bake all equipes
         - bin/cake bake all jogadores
         - bin/cake bake all partidas
+    
+
     

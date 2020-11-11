@@ -13,12 +13,25 @@ CREATE DATABASE partidas;
 USE partidas;
 
 
+CREATE TABLE usuarios {
+    usuario_id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255),
+    email VARCHAR(255) NOT NULL,
+    senha VARCHAR(255) NOT NULL,
+    created DATETIME,
+    modified DATETIME
+}
+
+
 CREATE TABLE equipes (
     equipe_id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(255) NOT NULL,
     data_fundacao DATE NOT NULL,
     created DATETIME,
-    modified DATETIME
+    modified DATETIME,
+    autor VARCHAR(255) NOT NULL,
+    
+    FOREIGN KEY autor(autor) REFERENCES usuarios(nome)
 );
 
 
@@ -31,7 +44,9 @@ CREATE TABLE jogadores (
     posicao VARCHAR(255) NOT NULL,
     created DATETIME,
     modified DATETIME,
+    autor VARCHAR(255) NOT NULL,
 
+    FOREIGN KEY autor(autor) REFERENCES usuarios(nome),
     FOREIGN KEY equipe_id(equipe_id) REFERENCES equipes(equipe_id)
 );
 
@@ -41,9 +56,13 @@ CREATE TABLE partidas (
     equipe_casa_id INT NOT NULL,
     equipe_fora_id INT NOT NULL,
     data_partida DATETIME NOT NULL,
+    gols_fora INT NOT NULL,
+    gols_casa INT NOT NULL,
     created DATETIME,
     modified DATETIME,
+    autor VARCHAR(255) NOT NULL,
     
+    FOREIGN KEY autor(autor) REFERENCES usuarios(nome),
     FOREIGN KEY equipe_casa_id(equipe_casa_id) REFERENCES equipes(equipe_id),
     FOREIGN KEY equipe_fora_id(equipe_fora_id) REFERENCES equipes(equipe_id)
 );
