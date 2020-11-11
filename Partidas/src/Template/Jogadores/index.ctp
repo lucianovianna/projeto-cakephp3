@@ -7,9 +7,9 @@
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Jogador'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Equipes'), ['controller' => 'Equipes', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Equipe'), ['controller' => 'Equipes', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('Cadasatrar Jogador'), ['action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('Listar Equipes'), ['controller' => 'Equipes', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('Cadasatrar Equipe'), ['controller' => 'Equipes', 'action' => 'add']) ?></li>
     </ul>
 </nav>
 <div class="jogadores index large-9 medium-8 columns content">
@@ -32,7 +32,9 @@
             <?php foreach ($jogadores as $jogadore): ?>
             <tr>
                 <td><?= $this->Number->format($jogadore->jogador_id) ?></td>
-                <td><?= $jogadore->has('equipe') ? $this->Html->link($jogadore->equipe->equipe_id, ['controller' => 'Equipes', 'action' => 'view', $jogadore->equipe->equipe_id]) : '' ?></td>
+                <td>
+                    <?=  $this->Html->link($jogadore->equipe->nome, ['controller' => 'Equipes', 'action' => 'view', $jogadore->equipe->equipe_id]) ?>
+                </td>
                 <td><?= h($jogadore->nome) ?></td>
                 <td><?= h($jogadore->sobrenome) ?></td>
                 <td><?= $this->Number->format($jogadore->idade) ?></td>
