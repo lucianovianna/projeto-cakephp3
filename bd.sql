@@ -5,12 +5,15 @@
     - jogadores
 */
 
+-- Se o mysql não tiver entrando
+-- sudo /etc/init.d/mysql start
 
 DROP SCHEMA IF EXISTS partidas;
 CREATE DATABASE partidas;
 USE partidas;
 
 
+-- bin/cake bake migration CreateEquipes nome:string data_fundacao:date created modified
 CREATE TABLE equipes (
     equipe_id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(255) NOT NULL,
@@ -19,6 +22,8 @@ CREATE TABLE equipes (
     modified DATETIME
 );
 
+
+-- bin/cake bake migration CreateJogadores equipe_id:integer nome:string sobrenome:string idade:integer posicao:string created modified
 CREATE TABLE jogadores (
     jogador_id INT AUTO_INCREMENT PRIMARY KEY,
     equipe_id INT NOT NULL,
@@ -32,6 +37,8 @@ CREATE TABLE jogadores (
     FOREIGN KEY equipe_id(equipe_id) REFERENCES equipes(equipe_id)
 );
 
+
+-- bin/cake bake migration CreatePartidas equipe_casa_id:integer equipe_fora_id:integer data_partida:datetime created modified
 CREATE TABLE partidas (
     partida_id INT AUTO_INCREMENT PRIMARY KEY,
     equipe_casa_id INT NOT NULL,
@@ -39,10 +46,11 @@ CREATE TABLE partidas (
     data_partida DATETIME NOT NULL,
     created DATETIME,
     modified DATETIME,
-
+    
     FOREIGN KEY equipe_casa_id(equipe_casa_id) REFERENCES equipes(equipe_id),
     FOREIGN KEY equipe_fora_id(equipe_fora_id) REFERENCES equipes(equipe_id)
 );
+
 
 
 INSERT INTO equipes(nome, data_fundacao, created, modified) 
@@ -50,13 +58,16 @@ VALUES ("Goiás", "1980-10-10", NOW(), NOW()),
     ("Vila Nova", "1981-10-10", NOW(), NOW());
 
 
+
 INSERT INTO jogadores(equipe_id, nome, sobrenome, idade, posicao, created, modified) 
 VALUES (1, "Fulano", "da Silva", "35", "Goleiro", NOW(), NOW()),
     (2, "Ciclano", "Costa", "33", "Goleiro", NOW(), NOW());
 
 
+
 INSERT INTO partidas(equipe_casa_id, equipe_fora_id, data_partida, created, modified)
 VALUES (2, 1, NOW(), NOW(), NOW());
+
 
 
 /*
