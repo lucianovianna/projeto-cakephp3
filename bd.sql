@@ -29,9 +29,9 @@ CREATE TABLE equipes (
     data_fundacao DATE NOT NULL,
     created DATETIME,
     modified DATETIME,
-    autor VARCHAR(255) NOT NULL,
+    autor INT NOT NULL,
     
-    FOREIGN KEY autor(autor) REFERENCES usuarios(nome)
+    FOREIGN KEY autor(autor) REFERENCES usuarios(usuario_id)
 );
 
 
@@ -44,9 +44,9 @@ CREATE TABLE jogadores (
     posicao VARCHAR(255) NOT NULL,
     created DATETIME,
     modified DATETIME,
-    autor VARCHAR(255) NOT NULL,
+    autor INT NOT NULL,
 
-    FOREIGN KEY autor(autor) REFERENCES usuarios(nome),
+    FOREIGN KEY autor(autor) REFERENCES usuarios(usuario_id),
     FOREIGN KEY equipe_id(equipe_id) REFERENCES equipes(equipe_id)
 );
 
@@ -60,14 +60,15 @@ CREATE TABLE partidas (
     gols_casa INT NOT NULL,
     created DATETIME,
     modified DATETIME,
-    autor VARCHAR(255) NOT NULL,
+    autor INT NOT NULL,
     
-    FOREIGN KEY autor(autor) REFERENCES usuarios(nome),
+    FOREIGN KEY autor(autor) REFERENCES usuarios(usuario_id),
     FOREIGN KEY equipe_casa_id(equipe_casa_id) REFERENCES equipes(equipe_id),
     FOREIGN KEY equipe_fora_id(equipe_fora_id) REFERENCES equipes(equipe_id)
 );
 
-
+INSERT INTO usuarios(nome, email, senha, created, modified) 
+VALUES ("Padrão", "user@teste.com", "password", NOW(), NOW());
 
 INSERT INTO equipes(nome, data_fundacao, created, modified) 
 VALUES ("Goiás", "1980-10-10", NOW(), NOW()),
