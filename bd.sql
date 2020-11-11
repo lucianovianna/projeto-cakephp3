@@ -13,7 +13,6 @@ CREATE DATABASE partidas;
 USE partidas;
 
 
--- bin/cake bake migration CreateEquipes nome:string data_fundacao:date created modified
 CREATE TABLE equipes (
     equipe_id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(255) NOT NULL,
@@ -23,7 +22,6 @@ CREATE TABLE equipes (
 );
 
 
--- bin/cake bake migration CreateJogadores equipe_id:integer nome:string sobrenome:string idade:integer posicao:string created modified
 CREATE TABLE jogadores (
     jogador_id INT AUTO_INCREMENT PRIMARY KEY,
     equipe_id INT NOT NULL,
@@ -38,7 +36,6 @@ CREATE TABLE jogadores (
 );
 
 
--- bin/cake bake migration CreatePartidas equipe_casa_id:integer equipe_fora_id:integer data_partida:datetime created modified
 CREATE TABLE partidas (
     partida_id INT AUTO_INCREMENT PRIMARY KEY,
     equipe_casa_id INT NOT NULL,
