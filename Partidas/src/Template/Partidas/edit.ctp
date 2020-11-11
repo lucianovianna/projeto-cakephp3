@@ -23,7 +23,7 @@
     <fieldset>
         <legend><?= __('Editar Partida') ?></legend>
         <?php
-            echo $this->Form->control('equipe_casa_id');
+            echo $this->Form->control('equipe_casa_id', ['options' => $equipes]);
             echo $this->Form->control('equipe_fora_id', ['options' => $equipes]);
             echo $this->Form->control('data_partida');
         ?>
