@@ -13,14 +13,14 @@ CREATE DATABASE partidas;
 USE partidas;
 
 
-CREATE TABLE usuarios {
+CREATE TABLE usuarios (
     usuario_id INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(255),
+    nome_de_usuario VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
     senha VARCHAR(255) NOT NULL,
     created DATETIME,
     modified DATETIME
-}
+);
 
 
 CREATE TABLE equipes (
@@ -67,23 +67,24 @@ CREATE TABLE partidas (
     FOREIGN KEY equipe_fora_id(equipe_fora_id) REFERENCES equipes(equipe_id)
 );
 
-INSERT INTO usuarios(nome, email, senha, created, modified) 
-VALUES ("Padrão", "user@teste.com", "password", NOW(), NOW());
 
-INSERT INTO equipes(nome, data_fundacao, created, modified) 
-VALUES ("Goiás", "1980-10-10", NOW(), NOW()),
-    ("Vila Nova", "1981-10-10", NOW(), NOW());
+INSERT INTO usuarios(nome_de_usuario, email, senha, created, modified) 
+VALUES ("Padrão", "usuario@teste.com", "password", NOW(), NOW());
 
-
-
-INSERT INTO jogadores(equipe_id, nome, sobrenome, idade, posicao, created, modified) 
-VALUES (1, "Fulano", "da Silva", "35", "Goleiro", NOW(), NOW()),
-    (2, "Ciclano", "Costa", "33", "Goleiro", NOW(), NOW());
+INSERT INTO equipes(nome, data_fundacao, created, modified, autor) 
+VALUES ("Goiás", "1980-10-10", NOW(), NOW(), 1),
+    ("Vila Nova", "1981-10-10", NOW(), NOW(), 1);
 
 
 
-INSERT INTO partidas(equipe_casa_id, equipe_fora_id, data_partida, created, modified)
-VALUES (2, 1, NOW(), NOW(), NOW());
+INSERT INTO jogadores(equipe_id, nome, sobrenome, idade, posicao, created, modified, autor) 
+VALUES (1, "Fulano", "da Silva", "35", "Goleiro", NOW(), NOW(), 1),
+    (2, "Ciclano", "Souza", "33", "Zagueiro", NOW(), NOW(), 1);
+
+
+
+INSERT INTO partidas(equipe_casa_id, equipe_fora_id, data_partida, gols_casa, gols_fora, created, modified, autor)
+VALUES (2, 1, NOW(), 2, 2, NOW(), NOW(), 1);
 
 
 
