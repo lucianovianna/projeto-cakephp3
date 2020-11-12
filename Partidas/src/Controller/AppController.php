@@ -37,6 +37,12 @@ class AppController extends Controller
      *
      * @return void
      */
+
+    public function beforeFilter(Event $event)
+    {
+        $this->Auth->allow(['index', 'view', 'display']);
+    }
+
     public function initialize()
     {
         parent::initialize();
@@ -44,28 +50,37 @@ class AppController extends Controller
         $this->loadComponent('RequestHandler', [
             'enableBeforeRedirect' => false,
         ]);
+
         $this->loadComponent('Flash');
+        
         $this->loadComponent('Auth', [
-            'loginRedirect' => [
-                'controller' => 'Partidas',
-                'action' => 'index'
+            'loginAction' => [
+                'controller' => 'Usuarios',
+                'action' => 'login'
             ],
+            /*'loginRedirect' => [
+                'controller' => 'Pages',
+                'action' => 'display',
+                'home'
+            ],*/
             'logoutRedirect' => [
                 'controller' => 'Pages',
                 'action' => 'display',
                 'home'
+            ],
+            'authenticate' => [
+                'Form' => [
+                    'userModel' => 'Usuarios',
+                    'fields' => ['username' => 'email', 'password' => 'senha']
+                ]
             ]
         ]);
+        
 
         /*
          * Enable the following component for recommended CakePHP security settings.
          * see https://book.cakephp.org/3/en/controllers/components/security.html
          */
         //$this->loadComponent('Security');
-    }
-
-    public function beforeFilter(Event $event)
-    {
-        $this->Auth->allow(['index', 'view', 'display']);
     }
 }

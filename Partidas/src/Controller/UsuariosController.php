@@ -25,7 +25,7 @@ class UsuariosController extends AppController
         if ($this->request->is('post')) {
             $usuario = $this->Auth->identify();
             if ($usuario) {
-                $this->Auth->setUsuario($usuario);
+                $this->Auth->setUser($usuario);
                 return $this->redirect($this->Auth->redirectUrl());
             }
             $this->Flash->error(__('E-mail ou senha incorreta'));
