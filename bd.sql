@@ -30,7 +30,7 @@ CREATE TABLE equipes (
     data_fundacao DATE NOT NULL,
     created DATETIME,
     modified DATETIME,
-    autor INT,
+    autor INT
 );
 
 

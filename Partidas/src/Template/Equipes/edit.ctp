@@ -22,8 +22,10 @@
         <legend><?= __('Edit Equipe') ?></legend>
         <?php
             echo $this->Form->control('nome');
-            echo $this->Form->control('data_fundacao');
-            echo $this->Form->control('autor');
+            echo $this->Form->control('data_fundacao', [
+                'minYear' => date('Y') - 120,
+                'maxYear' => date('Y') + 1, 
+            ]);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

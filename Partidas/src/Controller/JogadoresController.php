@@ -54,7 +54,7 @@ class JogadoresController extends AppController
         if ($this->request->is('post')) {
             $jogadore = $this->Jogadores->patchEntity($jogadore, $this->request->getData());
 
-            $jogadore->autor = $this->Auth->usuario('usuario_id'); // Para salvar o 'autor'
+            $jogadore->autor = $this->Auth->user('usuario_id'); // Para salvar o 'autor'
 
             if ($this->Jogadores->save($jogadore)) {
                 $this->Flash->success(__('The jogadore has been saved.'));
