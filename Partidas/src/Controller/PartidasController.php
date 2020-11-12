@@ -20,7 +20,7 @@ class PartidasController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Equipes'],
+            'contain' => ['Equipes', 'Usuarios'],
         ];
         $partidas = $this->paginate($this->Partidas);
 

@@ -30,7 +30,9 @@ CREATE TABLE equipes (
     data_fundacao DATE NOT NULL,
     created DATETIME,
     modified DATETIME,
-    autor INT
+    autor INT,
+
+    FOREIGN KEY autor(autor) REFERECES usuarios(usuario_id),
 );
 
 
@@ -45,9 +47,9 @@ CREATE TABLE jogadores (
     modified DATETIME,
     autor INT,
 
+    FOREIGN KEY autor(autor) REFERECES usuarios(usuario_id),
     FOREIGN KEY equipe_id(equipe_id) REFERENCES equipes(equipe_id)
 );
-
 
 CREATE TABLE partidas (
     partida_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -60,9 +62,11 @@ CREATE TABLE partidas (
     modified DATETIME,
     autor INT,
     
+    FOREIGN KEY autor(autor) REFERECES usuarios(usuario_id),
     FOREIGN KEY equipe_casa_id(equipe_casa_id) REFERENCES equipes(equipe_id),
     FOREIGN KEY equipe_fora_id(equipe_fora_id) REFERENCES equipes(equipe_id)
 );
+-- ALTER TABLE partidas ADD COLUMN ganhador INT AFTER gols_casa;
 
 
 

@@ -21,14 +21,13 @@
 <div class="jogadores form large-9 medium-8 columns content">
     <?= $this->Form->create($jogadore) ?>
     <fieldset>
-        <legend><?= __('Edit Jogadore') ?></legend>
+        <legend><?= __('Edit Jogador') ?></legend>
         <?php
             echo $this->Form->control('equipe_id', ['options' => $equipes]);
             echo $this->Form->control('nome');
             echo $this->Form->control('sobrenome');
             echo $this->Form->control('idade');
-            echo $this->Form->control('posicao');
-            echo $this->Form->control('autor');
+            echo $this->Form->control('posicao', ['label' => 'Posição']);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
