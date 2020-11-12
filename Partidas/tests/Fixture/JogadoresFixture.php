@@ -23,6 +23,7 @@ class JogadoresFixture extends TestFixture
         'posicao' => ['type' => 'string', 'length' => 255, 'null' => false, 'default' => null, 'collate' => 'utf8mb4_0900_ai_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
         'created' => ['type' => 'datetime', 'length' => null, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null],
         'modified' => ['type' => 'datetime', 'length' => null, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null],
+        'autor' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         '_indexes' => [
             'equipe_id' => ['type' => 'index', 'columns' => ['equipe_id'], 'length' => []],
         ],
@@ -51,8 +52,9 @@ class JogadoresFixture extends TestFixture
                 'sobrenome' => 'Lorem ipsum dolor sit amet',
                 'idade' => 1,
                 'posicao' => 'Lorem ipsum dolor sit amet',
-                'created' => '2020-11-11 14:13:08',
-                'modified' => '2020-11-11 14:13:08',
+                'created' => '2020-11-12 13:11:37',
+                'modified' => '2020-11-12 13:11:37',
+                'autor' => 1,
             ],
         ];
         parent::init();

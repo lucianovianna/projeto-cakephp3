@@ -1,6 +1,7 @@
 /*
 - bd relacional
-    - equipes (times da conflito de nome)
+    - usuarios
+    - equipes
     - partidas
     - jogadores
 */
@@ -29,7 +30,7 @@ CREATE TABLE equipes (
     data_fundacao DATE NOT NULL,
     created DATETIME,
     modified DATETIME,
-    autor INT NOT NULL,
+    autor INT,
     
     FOREIGN KEY autor(autor) REFERENCES usuarios(usuario_id)
 );
@@ -44,9 +45,8 @@ CREATE TABLE jogadores (
     posicao VARCHAR(255) NOT NULL,
     created DATETIME,
     modified DATETIME,
-    autor INT NOT NULL,
+    autor INT,
 
-    FOREIGN KEY autor(autor) REFERENCES usuarios(usuario_id),
     FOREIGN KEY equipe_id(equipe_id) REFERENCES equipes(equipe_id)
 );
 
@@ -60,9 +60,8 @@ CREATE TABLE partidas (
     gols_casa INT NOT NULL,
     created DATETIME,
     modified DATETIME,
-    autor INT NOT NULL,
+    autor INT,
     
-    FOREIGN KEY autor(autor) REFERENCES usuarios(usuario_id),
     FOREIGN KEY equipe_casa_id(equipe_casa_id) REFERENCES equipes(equipe_id),
     FOREIGN KEY equipe_fora_id(equipe_fora_id) REFERENCES equipes(equipe_id)
 );

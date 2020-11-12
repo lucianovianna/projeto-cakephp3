@@ -20,7 +20,7 @@ class EquipesFixture extends TestFixture
         'data_fundacao' => ['type' => 'date', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
         'created' => ['type' => 'datetime', 'length' => null, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null],
         'modified' => ['type' => 'datetime', 'length' => null, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null],
-        'autor' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
+        'autor' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         '_indexes' => [
             'autor' => ['type' => 'index', 'columns' => ['autor'], 'length' => []],
         ],
@@ -46,8 +46,8 @@ class EquipesFixture extends TestFixture
                 'equipe_id' => 1,
                 'nome' => 'Lorem ipsum dolor sit amet',
                 'data_fundacao' => '2020-11-12',
-                'created' => '2020-11-12 12:19:40',
-                'modified' => '2020-11-12 12:19:40',
+                'created' => '2020-11-12 13:11:16',
+                'modified' => '2020-11-12 13:11:16',
                 'autor' => 1,
             ],
         ];

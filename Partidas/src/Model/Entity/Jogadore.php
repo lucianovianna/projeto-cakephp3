@@ -14,6 +14,7 @@ use Cake\ORM\Entity;
  * @property string $posicao
  * @property \Cake\I18n\FrozenTime|null $created
  * @property \Cake\I18n\FrozenTime|null $modified
+ * @property int|null $autor
  *
  * @property \App\Model\Entity\Equipe $equipe
  */
@@ -36,6 +37,7 @@ class Jogadore extends Entity
         'posicao' => true,
         'created' => true,
         'modified' => true,
+        'autor' => true,
         'equipe' => true,
     ];
 }

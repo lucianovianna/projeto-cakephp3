@@ -81,6 +81,10 @@ class JogadoresTable extends Table
             ->requirePresence('posicao', 'create')
             ->notEmptyString('posicao');
 
+        $validator
+            ->integer('autor')
+            ->allowEmptyString('autor');
+
         return $validator;
     }
 

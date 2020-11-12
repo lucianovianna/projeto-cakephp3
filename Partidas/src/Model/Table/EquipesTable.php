@@ -64,8 +64,7 @@ class EquipesTable extends Table
 
         $validator
             ->integer('autor')
-            ->requirePresence('autor', 'create')
-            ->notEmptyString('autor');
+            ->allowEmptyString('autor');
 
         return $validator;
     }

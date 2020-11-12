@@ -10,8 +10,11 @@ use Cake\ORM\Entity;
  * @property int $equipe_casa_id
  * @property int $equipe_fora_id
  * @property \Cake\I18n\FrozenTime $data_partida
+ * @property int $gols_fora
+ * @property int $gols_casa
  * @property \Cake\I18n\FrozenTime|null $created
  * @property \Cake\I18n\FrozenTime|null $modified
+ * @property int|null $autor
  *
  * @property \App\Model\Entity\Equipe $equipe
  */
@@ -30,8 +33,11 @@ class Partida extends Entity
         'equipe_casa_id' => true,
         'equipe_fora_id' => true,
         'data_partida' => true,
+        'gols_fora' => true,
+        'gols_casa' => true,
         'created' => true,
         'modified' => true,
+        'autor' => true,
         'equipe' => true,
     ];
 }

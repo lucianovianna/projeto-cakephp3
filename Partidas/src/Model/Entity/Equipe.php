@@ -11,7 +11,7 @@ use Cake\ORM\Entity;
  * @property \Cake\I18n\FrozenDate $data_fundacao
  * @property \Cake\I18n\FrozenTime|null $created
  * @property \Cake\I18n\FrozenTime|null $modified
- * @property int $autor
+ * @property int|null $autor
  */
 class Equipe extends Entity
 {

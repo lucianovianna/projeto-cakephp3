@@ -68,6 +68,20 @@ class PartidasTable extends Table
             ->requirePresence('data_partida', 'create')
             ->notEmptyDateTime('data_partida');
 
+        $validator
+            ->integer('gols_fora')
+            ->requirePresence('gols_fora', 'create')
+            ->notEmptyString('gols_fora');
+
+        $validator
+            ->integer('gols_casa')
+            ->requirePresence('gols_casa', 'create')
+            ->notEmptyString('gols_casa');
+
+        $validator
+            ->integer('autor')
+            ->allowEmptyString('autor');
+
         return $validator;
     }
 
