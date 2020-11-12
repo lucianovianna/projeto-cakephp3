@@ -68,8 +68,11 @@ CREATE TABLE partidas (
 );
 
 
+
 INSERT INTO usuarios(nome_de_usuario, email, senha, created, modified) 
 VALUES ("Padrão", "usuario@teste.com", "password", NOW(), NOW());
+
+
 
 INSERT INTO equipes(nome, data_fundacao, created, modified, autor) 
 VALUES ("Goiás", "1980-10-10", NOW(), NOW(), 1),
@@ -85,6 +88,7 @@ VALUES (1, "Fulano", "da Silva", "35", "Goleiro", NOW(), NOW(), 1),
 
 INSERT INTO partidas(equipe_casa_id, equipe_fora_id, data_partida, gols_casa, gols_fora, created, modified, autor)
 VALUES (2, 1, NOW(), 2, 2, NOW(), NOW(), 1);
+
 
 
 

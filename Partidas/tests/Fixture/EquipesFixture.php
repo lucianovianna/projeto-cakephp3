@@ -20,8 +20,13 @@ class EquipesFixture extends TestFixture
         'data_fundacao' => ['type' => 'date', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
         'created' => ['type' => 'datetime', 'length' => null, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null],
         'modified' => ['type' => 'datetime', 'length' => null, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null],
+        'autor' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
+        '_indexes' => [
+            'autor' => ['type' => 'index', 'columns' => ['autor'], 'length' => []],
+        ],
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['equipe_id'], 'length' => []],
+            'equipes_ibfk_1' => ['type' => 'foreign', 'columns' => ['autor'], 'references' => ['usuarios', 'usuario_id'], 'update' => 'noAction', 'delete' => 'noAction', 'length' => []],
         ],
         '_options' => [
             'engine' => 'InnoDB',
@@ -40,9 +45,10 @@ class EquipesFixture extends TestFixture
             [
                 'equipe_id' => 1,
                 'nome' => 'Lorem ipsum dolor sit amet',
-                'data_fundacao' => '2020-11-11',
-                'created' => '2020-11-11 14:12:48',
-                'modified' => '2020-11-11 14:12:48',
+                'data_fundacao' => '2020-11-12',
+                'created' => '2020-11-12 12:19:40',
+                'modified' => '2020-11-12 12:19:40',
+                'autor' => 1,
             ],
         ];
         parent::init();

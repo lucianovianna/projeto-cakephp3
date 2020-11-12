@@ -33,6 +33,16 @@ class EsquemaPartidas extends AbstractMigration
                 'limit' => null,
                 'null' => true,
             ])
+            ->addColumn('autor', 'integer', [
+                'default' => null,
+                'limit' => null,
+                'null' => false,
+            ])
+            ->addIndex(
+                [
+                    'autor',
+                ]
+            )
             ->create();
 
         $this->table('jogadores', ['id' => false, 'primary_key' => ['jogador_id']])
@@ -77,6 +87,16 @@ class EsquemaPartidas extends AbstractMigration
                 'limit' => null,
                 'null' => true,
             ])
+            ->addColumn('autor', 'integer', [
+                'default' => null,
+                'limit' => null,
+                'null' => false,
+            ])
+            ->addIndex(
+                [
+                    'autor',
+                ]
+            )
             ->addIndex(
                 [
                     'equipe_id',
@@ -106,6 +126,16 @@ class EsquemaPartidas extends AbstractMigration
                 'limit' => null,
                 'null' => false,
             ])
+            ->addColumn('gols_fora', 'integer', [
+                'default' => null,
+                'limit' => null,
+                'null' => false,
+            ])
+            ->addColumn('gols_casa', 'integer', [
+                'default' => null,
+                'limit' => null,
+                'null' => false,
+            ])
             ->addColumn('created', 'datetime', [
                 'default' => null,
                 'limit' => null,
@@ -116,6 +146,16 @@ class EsquemaPartidas extends AbstractMigration
                 'limit' => null,
                 'null' => true,
             ])
+            ->addColumn('autor', 'integer', [
+                'default' => null,
+                'limit' => null,
+                'null' => false,
+            ])
+            ->addIndex(
+                [
+                    'autor',
+                ]
+            )
             ->addIndex(
                 [
                     'equipe_casa_id',
@@ -128,7 +168,62 @@ class EsquemaPartidas extends AbstractMigration
             )
             ->create();
 
+        $this->table('usuarios', ['id' => false, 'primary_key' => ['usuario_id']])
+            ->addColumn('usuario_id', 'integer', [
+                'autoIncrement' => true,
+                'default' => null,
+                'limit' => null,
+                'null' => false,
+            ])
+            ->addColumn('nome_de_usuario', 'string', [
+                'default' => null,
+                'limit' => 255,
+                'null' => false,
+            ])
+            ->addColumn('email', 'string', [
+                'default' => null,
+                'limit' => 255,
+                'null' => false,
+            ])
+            ->addColumn('senha', 'string', [
+                'default' => null,
+                'limit' => 255,
+                'null' => false,
+            ])
+            ->addColumn('created', 'datetime', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('modified', 'datetime', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->create();
+
+        $this->table('equipes')
+            ->addForeignKey(
+                'autor',
+                'usuarios',
+                'usuario_id',
+                [
+                    'update' => 'NO_ACTION',
+                    'delete' => 'NO_ACTION'
+                ]
+            )
+            ->update();
+
         $this->table('jogadores')
+            ->addForeignKey(
+                'autor',
+                'usuarios',
+                'usuario_id',
+                [
+                    'update' => 'NO_ACTION',
+                    'delete' => 'NO_ACTION'
+                ]
+            )
             ->addForeignKey(
                 'equipe_id',
                 'equipes',
@@ -141,6 +236,15 @@ class EsquemaPartidas extends AbstractMigration
             ->update();
 
         $this->table('partidas')
+            ->addForeignKey(
+                'autor',
+                'usuarios',
+                'usuario_id',
+                [
+                    'update' => 'NO_ACTION',
+                    'delete' => 'NO_ACTION'
+                ]
+            )
             ->addForeignKey(
                 'equipe_casa_id',
                 'equipes',
@@ -164,12 +268,23 @@ class EsquemaPartidas extends AbstractMigration
 
     public function down()
     {
+        $this->table('equipes')
+            ->dropForeignKey(
+                'autor'
+            )->save();
+
         $this->table('jogadores')
+            ->dropForeignKey(
+                'autor'
+            )
             ->dropForeignKey(
                 'equipe_id'
             )->save();
 
         $this->table('partidas')
+            ->dropForeignKey(
+                'autor'
+            )
             ->dropForeignKey(
                 'equipe_casa_id'
             )
@@ -180,5 +295,6 @@ class EsquemaPartidas extends AbstractMigration
         $this->table('equipes')->drop()->save();
         $this->table('jogadores')->drop()->save();
         $this->table('partidas')->drop()->save();
+        $this->table('usuarios')->drop()->save();
     }
 }

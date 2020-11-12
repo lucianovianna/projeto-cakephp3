@@ -62,6 +62,11 @@ class EquipesTable extends Table
             ->requirePresence('data_fundacao', 'create')
             ->notEmptyDate('data_fundacao');
 
+        $validator
+            ->integer('autor')
+            ->requirePresence('autor', 'create')
+            ->notEmptyString('autor');
+
         return $validator;
     }
 }

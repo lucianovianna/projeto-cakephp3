@@ -8,21 +8,22 @@
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Form->postLink(
-                __('Deletar'),
+                __('Delete'),
                 ['action' => 'delete', $equipe->equipe_id],
                 ['confirm' => __('Are you sure you want to delete # {0}?', $equipe->equipe_id)]
             )
         ?></li>
-        <li><?= $this->Html->link(__('Listar Equipes'), ['action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('List Equipes'), ['action' => 'index']) ?></li>
     </ul>
 </nav>
 <div class="equipes form large-9 medium-8 columns content">
     <?= $this->Form->create($equipe) ?>
     <fieldset>
-        <legend><?= __('Editar Equipe') ?></legend>
+        <legend><?= __('Edit Equipe') ?></legend>
         <?php
             echo $this->Form->control('nome');
             echo $this->Form->control('data_fundacao');
+            echo $this->Form->control('autor');
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

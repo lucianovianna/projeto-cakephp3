@@ -7,8 +7,7 @@
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('Cadastrar Equipe'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('Listar Jogadores'), ['controller' => 'Jogadores', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Equipe'), ['action' => 'add']) ?></li>
     </ul>
 </nav>
 <div class="equipes index large-9 medium-8 columns content">
@@ -21,6 +20,7 @@
                 <th scope="col"><?= $this->Paginator->sort('data_fundacao') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('created') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('modified') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('autor') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -32,6 +32,7 @@
                 <td><?= h($equipe->data_fundacao) ?></td>
                 <td><?= h($equipe->created) ?></td>
                 <td><?= h($equipe->modified) ?></td>
+                <td><?= $this->Number->format($equipe->autor) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $equipe->equipe_id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $equipe->equipe_id]) ?>
