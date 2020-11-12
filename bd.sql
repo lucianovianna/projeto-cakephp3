@@ -31,8 +31,6 @@ CREATE TABLE equipes (
     created DATETIME,
     modified DATETIME,
     autor INT,
-    
-    FOREIGN KEY autor(autor) REFERENCES usuarios(usuario_id)
 );
 
 
