@@ -17,7 +17,24 @@ class UsuariosController extends AppController
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
-        $this->Auth->allow('add');
+        $this->Auth->allow(['add', 'logout']);
+    }
+
+    public function login()
+    {
+        if ($this->request->is('post')) {
+            $usuario = $this->Auth->identify();
+            if ($usuario) {
+                $this->Auth->setUsuario($usuario);
+                return $this->redirect($this->Auth->redirectUrl());
+            }
+            $this->Flash->error(__('E-mail ou senha incorreta'));
+        }
+    }
+
+    public function logout()
+    {
+        return $this->redirect($this->Auth->logout());
     }
 
     /**

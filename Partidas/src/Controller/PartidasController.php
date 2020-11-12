@@ -53,6 +53,9 @@ class PartidasController extends AppController
         $partida = $this->Partidas->newEntity();
         if ($this->request->is('post')) {
             $partida = $this->Partidas->patchEntity($partida, $this->request->getData());
+
+            $partida->autor = $this->Auth->usuario('usuario_id'); // Para salvar o 'autor'
+
             if ($this->Partidas->save($partida)) {
                 $this->Flash->success(__('The partida has been saved.'));
 
