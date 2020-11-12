@@ -22,8 +22,8 @@
         <legend><?= __('Edit Usuario') ?></legend>
         <?php
             echo $this->Form->control('nome_de_usuario');
-            echo $this->Form->control('email');
-            echo $this->Form->control('senha');
+            echo $this->Form->control('email', ['type' => 'email']);
+            echo $this->Form->control('senha', ['type' => 'password']);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
