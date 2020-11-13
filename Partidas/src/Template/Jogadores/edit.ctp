@@ -28,7 +28,6 @@
             echo $this->Form->control('sobrenome');
             echo $this->Form->control('idade');
             echo $this->Form->control('posicao');
-            echo $this->Form->control('autor');
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

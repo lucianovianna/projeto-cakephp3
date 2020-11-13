@@ -23,7 +23,6 @@
         <?php
             echo $this->Form->control('nome');
             echo $this->Form->control('data_fundacao');
-            echo $this->Form->control('autor');
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

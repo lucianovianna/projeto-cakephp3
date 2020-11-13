@@ -16,8 +16,7 @@
         <legend><?= __('Add Equipe') ?></legend>
         <?php
             echo $this->Form->control('nome');
-            echo $this->Form->control('data_fundacao');
-            echo $this->Form->control('autor');
+            echo $this->Form->control('data_fundacao',);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

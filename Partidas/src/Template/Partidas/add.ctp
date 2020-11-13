@@ -24,7 +24,6 @@
             echo $this->Form->control('data_partida');
             echo $this->Form->control('gols_fora');
             echo $this->Form->control('gols_casa');
-            echo $this->Form->control('autor');
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
