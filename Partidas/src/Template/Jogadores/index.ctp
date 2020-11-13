@@ -25,7 +25,7 @@
                 <th scope="col"><?= $this->Paginator->sort('posicao', ['label' => 'Posição']) ?></th>
                 <th scope="col"><?= $this->Paginator->sort('created') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('modified') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('autor') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('usuario_id', ['label' => 'Autor']) ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
