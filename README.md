@@ -28,6 +28,7 @@
         - bin/cake bake all jogadores
         - bin/cake bake all partidas
     
-    
-
+    - Nos controllers:
+        - $jogadore->autor = $this->Auth->user('usuario_id'); // Para salvar o 'autor'
+            - Colocar no add(), após a post request;
     

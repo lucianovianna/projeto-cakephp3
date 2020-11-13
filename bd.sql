@@ -32,7 +32,7 @@ CREATE TABLE equipes (
     modified DATETIME,
     autor INT,
 
-    FOREIGN KEY autor(autor) REFERECES usuarios(usuario_id),
+    CONSTRAINT FK_autor_Equipe FOREIGN KEY (autor) REFERENCES usuarios(usuario_id),
 );
 
 
@@ -47,9 +47,10 @@ CREATE TABLE jogadores (
     modified DATETIME,
     autor INT,
 
-    FOREIGN KEY autor(autor) REFERECES usuarios(usuario_id),
-    FOREIGN KEY equipe_id(equipe_id) REFERENCES equipes(equipe_id)
+    CONSTRAINT FK_autor_Jogador FOREIGN KEY (autor) REFERENCES usuarios(usuario_id),
+    CONSTRAINT FK_equipe_id_Jogador FOREIGN KEY (equipe_id) REFERENCES equipes(equipe_id)
 );
+
 
 CREATE TABLE partidas (
     partida_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -62,11 +63,10 @@ CREATE TABLE partidas (
     modified DATETIME,
     autor INT,
     
-    FOREIGN KEY autor(autor) REFERECES usuarios(usuario_id),
-    FOREIGN KEY equipe_casa_id(equipe_casa_id) REFERENCES equipes(equipe_id),
-    FOREIGN KEY equipe_fora_id(equipe_fora_id) REFERENCES equipes(equipe_id)
+    CONSTRAINT FK_autor_Partida FOREIGN KEY (autor) REFERENCES usuarios(usuario_id),
+    CONSTRAINT FK_equipe_casa_Partida FOREIGN KEY (equipe_casa_id) REFERENCES equipes(equipe_id),
+    CONSTRAINT FK_equipe_fora_Partida FOREIGN KEY (equipe_fora_id) REFERENCES equipes(equipe_id)
 );
--- ALTER TABLE partidas ADD COLUMN ganhador INT AFTER gols_casa;
 
 
 
@@ -93,9 +93,12 @@ VALUES (2, 1, NOW(), 2, 2, NOW(), NOW(), 1);
 
 
 
+
 /*
 SELECT eq.nome AS Equipe_da_Casa, eq2.nome AS Equipe_de_Fora, pt.data_partida
 FROM partidas pt 
 JOIN equipes eq ON eq.equipe_id = pt.equipe_casa_id 
 JOIN equipes eq2 ON eq2.equipe_id = pt.equipe_fora_id;
 */
+
+
