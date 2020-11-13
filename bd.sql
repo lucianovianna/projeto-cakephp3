@@ -32,7 +32,7 @@ CREATE TABLE equipes (
     modified DATETIME,
     autor INT,
 
-    CONSTRAINT FK_autor_Equipe FOREIGN KEY (autor) REFERENCES usuarios(usuario_id),
+    CONSTRAINT FK_autor_Equipe FOREIGN KEY (autor) REFERENCES usuarios(usuario_id)
 );
 
 

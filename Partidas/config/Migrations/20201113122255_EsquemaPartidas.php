@@ -94,6 +94,11 @@ class EsquemaPartidas extends AbstractMigration
             ])
             ->addIndex(
                 [
+                    'autor',
+                ]
+            )
+            ->addIndex(
+                [
                     'equipe_id',
                 ]
             )
@@ -148,6 +153,11 @@ class EsquemaPartidas extends AbstractMigration
             ])
             ->addIndex(
                 [
+                    'autor',
+                ]
+            )
+            ->addIndex(
+                [
                     'equipe_casa_id',
                 ]
             )
@@ -192,7 +202,28 @@ class EsquemaPartidas extends AbstractMigration
             ])
             ->create();
 
+        $this->table('equipes')
+            ->addForeignKey(
+                'autor',
+                'usuarios',
+                'usuario_id',
+                [
+                    'update' => 'NO_ACTION',
+                    'delete' => 'NO_ACTION'
+                ]
+            )
+            ->update();
+
         $this->table('jogadores')
+            ->addForeignKey(
+                'autor',
+                'usuarios',
+                'usuario_id',
+                [
+                    'update' => 'NO_ACTION',
+                    'delete' => 'NO_ACTION'
+                ]
+            )
             ->addForeignKey(
                 'equipe_id',
                 'equipes',
@@ -205,6 +236,15 @@ class EsquemaPartidas extends AbstractMigration
             ->update();
 
         $this->table('partidas')
+            ->addForeignKey(
+                'autor',
+                'usuarios',
+                'usuario_id',
+                [
+                    'update' => 'NO_ACTION',
+                    'delete' => 'NO_ACTION'
+                ]
+            )
             ->addForeignKey(
                 'equipe_casa_id',
                 'equipes',
@@ -228,12 +268,23 @@ class EsquemaPartidas extends AbstractMigration
 
     public function down()
     {
+        $this->table('equipes')
+            ->dropForeignKey(
+                'autor'
+            )->save();
+
         $this->table('jogadores')
+            ->dropForeignKey(
+                'autor'
+            )
             ->dropForeignKey(
                 'equipe_id'
             )->save();
 
         $this->table('partidas')
+            ->dropForeignKey(
+                'autor'
+            )
             ->dropForeignKey(
                 'equipe_casa_id'
             )
