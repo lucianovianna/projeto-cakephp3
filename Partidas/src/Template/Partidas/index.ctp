@@ -10,6 +10,7 @@
         <li><?= $this->Html->link(__('New Partida'), ['action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Equipes'), ['controller' => 'Equipes', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Equipe'), ['controller' => 'Equipes', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('Go to Home'), ['controller' => 'Pages', 'action' => 'index']) ?></li>
     </ul>
 </nav>
 <div class="partidas index large-9 medium-8 columns content">
