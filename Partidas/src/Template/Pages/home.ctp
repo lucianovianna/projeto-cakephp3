@@ -50,6 +50,24 @@ $cakeDescription = 'CakePHP: the rapid development PHP framework';
         <div class="header-image"><?= $this->Html->image('cake.logo.svg') ?></div>
         <div class="header-title">
             <h1>Sistema de Partidas</h1>
+            <span> 
+                <?php 
+                    /*$loggedUser = $this->request->session()->read('Auth.User');
+                    if(!$loggedUser) {
+                        $userID = $loggedUser['usuario_id'];
+                        $username = $loggedUser['nome_de_usuario'];
+                        echo "Logado como: $username <br>";
+                        echo $this->Html->link('Logout', ['controller' => 'Usuarios', 'action' => 'logout']);
+                        echo ' | ';
+                        echo $this->Html->link('Cadastrar Usuário', ['controller' => 'Usuarios', 'action' => 'add']);
+                        echo '<br>';
+                    }
+                    else {
+                        echo $this->Html->link('Fazer login', ['controller' => 'Usuarios', 'action' => 'login']);
+                        echo '<br>';
+                    }/*
+                ?>
+            </span>
         </div>
     </header>
 
