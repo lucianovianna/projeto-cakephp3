@@ -103,8 +103,8 @@ class PartidasTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['equipe_casa_id'], 'Equipes'));
-        $rules->add($rules->existsIn(['equipe_fora_id'], 'Equipes'));
+        $rules->add($rules->existsIn(['equipe_casa_id'], 'EquipesA'));
+        $rules->add($rules->existsIn(['equipe_fora_id'], 'EquipesB'));
 
         return $rules;
     }

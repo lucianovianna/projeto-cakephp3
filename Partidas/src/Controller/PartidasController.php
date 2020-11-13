@@ -63,9 +63,16 @@ class PartidasController extends AppController
             }
             $this->Flash->error(__('The partida could not be saved. Please, try again.'));
         }
+
+        $formOptions = $this->Partidas->EquipesA->find('list', [
+            'keyField' => 'equipe_id', 
+            'valueField' => 'nome'
+        ]);
+        
         $equipes = $this->Partidas->EquipesA->find('list', ['limit' => 200]);
         $equipes2 = $this->Partidas->EquipesB->find('list', ['limit' => 200]);
-        $this->set(compact('partida', 'equipes', 'equipes2'));
+
+        $this->set(compact('partida', 'equipes', 'equipes2', 'formOptions'));
     }
 
     /**
@@ -89,9 +96,16 @@ class PartidasController extends AppController
             }
             $this->Flash->error(__('The partida could not be saved. Please, try again.'));
         }
+
+        $formOptions = $this->Partidas->EquipesA->find('list', [
+            'keyField' => 'equipe_id', 
+            'valueField' => 'nome'
+        ]);
+
         $equipes = $this->Partidas->EquipesA->find('list', ['limit' => 200]);
         $equipes2 = $this->Partidas->EquipesB->find('list', ['limit' => 200]);
-        $this->set(compact('partida', 'equipes', 'equipes2'));
+
+        $this->set(compact('partida', 'equipes', 'equipes2', 'formOptions'));
     }
 
     /**

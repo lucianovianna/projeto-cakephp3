@@ -63,9 +63,14 @@ class JogadoresController extends AppController
             }
             $this->Flash->error(__('The jogadore could not be saved. Please, try again.'));
         }
+
+        $formOptions = $this->Jogadores->Equipes->find('list', ['keyField' => 'equipe_id', 'valueField' => 'nome']);
+
         $equipes = $this->Jogadores->Equipes->find('list', ['limit' => 200]);
+
         $usuarios = $this->Jogadores->Usuarios->find('list', ['limit' => 200]);
-        $this->set(compact('jogadore', 'equipes', 'usuarios'));
+
+        $this->set(compact('jogadore', 'equipes', 'usuarios', 'formOptions'));
     }
 
     /**
@@ -89,8 +94,15 @@ class JogadoresController extends AppController
             }
             $this->Flash->error(__('The jogadore could not be saved. Please, try again.'));
         }
+
+        $formOptions = $this->Jogadores->Equipes->find('list', [
+            'keyField' => 'equipe_id', 
+            'valueField' => 'nome'
+        ]);
+
         $equipes = $this->Jogadores->Equipes->find('list', ['limit' => 200]);
-        $this->set(compact('jogadore', 'equipes'));
+
+        $this->set(compact('jogadore', 'equipes', 'formOptions'));
     }
 
     /**

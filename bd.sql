@@ -92,47 +92,6 @@ VALUES (2, 1, NOW(), 2, 2, NOW(), NOW(), 1);
 
 
 /*
-SELECT
-   Jogadores.jogador_id AS `Jogadores__jogador_id`,
-   Jogadores.equipe_id AS `Jogadores__equipe_id`,
-   Jogadores.nome AS `Jogadores__nome`,
-   Jogadores.sobrenome AS `Jogadores__sobrenome`,
-   Jogadores.idade AS `Jogadores__idade`,
-   Jogadores.posicao AS `Jogadores__posicao`,
-   Jogadores.created AS `Jogadores__created`,
-   Jogadores.modified AS `Jogadores__modified`,
-   Jogadores.autor AS `Jogadores__autor`,
-   Equipes.equipe_id AS `Equipes__equipe_id`,
-   Equipes.nome AS `Equipes__nome`,
-   Equipes.data_fundacao AS `Equipes__data_fundacao`,
-   Equipes.created AS `Equipes__created`,
-   Equipes.modified AS `Equipes__modified`,
-   Equipes.autor AS `Equipes__autor`,
-   Usuarios.usuario_id AS `Usuarios__usuario_id`,
-   Usuarios.nome_de_usuario AS `Usuarios__nome_de_usuario`,
-   Usuarios.email AS `Usuarios__email`,
-   Usuarios.senha AS `Usuarios__senha`,
-   Usuarios.created AS `Usuarios__created`,
-   Usuarios.modified AS `Usuarios__modified` 
-FROM
-   jogadores Jogadores 
-   INNER JOIN
-      equipes Equipes 
-      ON Equipes.equipe_id = 
-      (
-         Jogadores.equipe_id
-      )
-   INNER JOIN
-      usuarios Usuarios 
-      ON Usuarios.usuario_id = 
-      (
-         Jogadores.usuario_id
-      )
-      LIMIT 20 OFFSET 0
-
-
-*/
-/*
 SELECT eq.nome AS Equipe_da_Casa, eq2.nome AS Equipe_de_Fora, pt.data_partida
 FROM partidas pt 
 JOIN equipes eq ON eq.equipe_id = pt.equipe_casa_id 

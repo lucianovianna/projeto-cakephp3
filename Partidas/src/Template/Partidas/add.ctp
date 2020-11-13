@@ -17,8 +17,8 @@
     <fieldset>
         <legend><?= __('Add Partida') ?></legend>
         <?php
-            echo $this->Form->control('equipe_casa_id', ['options' => $equipes]);
-            echo $this->Form->control('equipe_fora_id', ['options' => $equipes]);
+            echo $this->Form->control('equipe_casa_id', ['options' => $formOptions]);
+            echo $this->Form->control('equipe_fora_id', ['options' => $formOptions]);
             echo $this->Form->control('data_partida', ['minYear' => 1950, 'maxYear' => date('Y')]);
             echo $this->Form->control('gols_casa', ['label' => 'Gols da Equipe de Casa']);
             echo $this->Form->control('gols_fora', ['label' => 'Gols da Equipe de Fora']);

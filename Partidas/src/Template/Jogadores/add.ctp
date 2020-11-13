@@ -15,9 +15,9 @@
 <div class="jogadores form large-9 medium-8 columns content">
     <?= $this->Form->create($jogadore) ?>
     <fieldset>
-        <legend><?= __('Add Jogadore') ?></legend>
+        <legend><?= __('Add Jogador') ?></legend>
         <?php
-            echo $this->Form->control('equipe_id', ['options' => $equipes]);
+            echo $this->Form->control('equipe_id', ['options' => $formOptions]);
             echo $this->Form->control('nome');
             echo $this->Form->control('sobrenome');
             echo $this->Form->control('idade');
