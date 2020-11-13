@@ -55,12 +55,28 @@ class UsuariosTable extends Table
             ->scalar('nome_de_usuario')
             ->maxLength('nome_de_usuario', 255)
             ->requirePresence('nome_de_usuario', 'create')
-            ->notEmptyString('nome_de_usuario', 'Insira seu nome de usuário');
+            ->notEmptyString('nome_de_usuario', 'Insira seu nome de usuário')
+            ->add(
+                'nome_de_usuario', 
+                ['unique' => [
+                    'rule' => 'validateUnique', 
+                    'provider' => 'table', 
+                    'message' => 'Esse Nome de Usuário já está cadastrado.']
+                ]
+            );
 
         $validator
             ->email('email')
             ->requirePresence('email', 'create')
-            ->notEmptyString('email', 'Insira seu e-mail');
+            ->notEmptyString('email', 'Insira seu e-mail')
+            ->add(
+                'email', 
+                ['unique' => [
+                    'rule' => 'validateUnique', 
+                    'provider' => 'table', 
+                    'message' => 'Esse E-mail já está cadastrado.']
+                ]
+            );
 
         $validator
             ->scalar('senha')

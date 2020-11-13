@@ -42,16 +42,6 @@ class EquipesTable extends Table
             'foreignKey' => 'usuario_id',
             'joinType' => 'INNER',
         ]);
-           
-        /*
-        $this->hasMany('EquipesA', [
-            'foreignKey' => 'equipe_casa_id',
-            'className' => "Equipes"
-        ]);
-        $this->hasMany('EquipesB', [
-            'foreignKey' => 'equipe_fora_id',
-            'className' => "Equipes"
-        ]); */
     }
 
     /**
@@ -70,7 +60,15 @@ class EquipesTable extends Table
             ->scalar('nome')
             ->maxLength('nome', 255)
             ->requirePresence('nome', 'create')
-            ->notEmptyString('nome');
+            ->notEmptyString('nome')
+            ->add(
+                'nome', 
+                ['unique' => [
+                    'rule' => 'validateUnique', 
+                    'provider' => 'table', 
+                    'message' => 'Esse nome já está cadastrado.']
+                ]
+            );;
 
         $validator
             ->date('data_fundacao')
