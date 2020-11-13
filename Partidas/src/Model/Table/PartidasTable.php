@@ -41,12 +41,21 @@ class PartidasTable extends Table
 
         $this->addBehavior('Timestamp');
 
-        $this->belongsTo('Equipes', [
+        $this->belongsTo('EquipesA', [
+            'className' => 'Equipes',
+            'propertyName' => 'equipeA',
             'foreignKey' => 'equipe_casa_id',
             'joinType' => 'INNER',
         ]);
-        $this->belongsTo('Equipes', [
+        $this->belongsTo('EquipesB', [
+            'className' => 'Equipes',
+            'propertyName' => 'equipeB',
             'foreignKey' => 'equipe_fora_id',
+            'joinType' => 'INNER',
+        ]);
+
+        $this->belongsTo('Usuarios', [
+            'foreignKey' => 'usuario_id',
             'joinType' => 'INNER',
         ]);
     }

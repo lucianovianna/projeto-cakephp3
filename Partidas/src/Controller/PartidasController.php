@@ -20,7 +20,7 @@ class PartidasController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Equipes', 'Usuarios'],
+            'contain' => ['Usuarios', 'EquipesA', 'EquipesB'],
         ];
         $partidas = $this->paginate($this->Partidas);
 
@@ -37,10 +37,9 @@ class PartidasController extends AppController
     public function view($id = null)
     {
         $partida = $this->Partidas->get($id, [
-            //'contain' => ['Equipes'],
-            'contain' => ['Equipes', 'Usuarios'],
+            'contain' => ['Usuarios', 'EquipesA', 'EquipesB'],
         ]);
-
+        
         $this->set('partida', $partida);
     }
 
@@ -64,10 +63,9 @@ class PartidasController extends AppController
             }
             $this->Flash->error(__('The partida could not be saved. Please, try again.'));
         }
-        $equipes = $this->Partidas->Equipes->find('list', ['limit' => 200]);
-        $usuarios = $this->Partidas->Usuarios->find('list', ['limit' => 200]);
-        //$this->set(compact('partida', 'equipes'));
-        $this->set(compact('partida', 'equipes', 'usuarios'));
+        $equipes = $this->Partidas->EquipesA->find('list', ['limit' => 200]);
+        $equipes2 = $this->Partidas->EquipesB->find('list', ['limit' => 200]);
+        $this->set(compact('partida', 'equipes', 'equipes2'));
     }
 
     /**
@@ -91,10 +89,9 @@ class PartidasController extends AppController
             }
             $this->Flash->error(__('The partida could not be saved. Please, try again.'));
         }
-        $equipes = $this->Partidas->Equipes->find('list', ['limit' => 200]);
-        $usuarios = $this->Partidas->Usuarios->find('list', ['limit' => 200]);
-        //$this->set(compact('partida', 'equipes'));
-        $this->set(compact('partida', 'equipes', 'usuarios'));
+        $equipes = $this->Partidas->EquipesA->find('list', ['limit' => 200]);
+        $equipes2 = $this->Partidas->EquipesB->find('list', ['limit' => 200]);
+        $this->set(compact('partida', 'equipes', 'equipes2'));
     }
 
     /**

@@ -16,8 +16,6 @@
         <li><?= $this->Html->link(__('List Partidas'), ['action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('List Equipes'), ['controller' => 'Equipes', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Equipe'), ['controller' => 'Equipes', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Usuarios'), ['controller' => 'Usuarios', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Usuario'), ['controller' => 'Usuarios', 'action' => 'add']) ?></li>
     </ul>
 </nav>
 <div class="partidas form large-9 medium-8 columns content">
@@ -25,11 +23,11 @@
     <fieldset>
         <legend><?= __('Edit Partida') ?></legend>
         <?php
-            echo $this->Form->control('equipe_casa_id');
+            echo $this->Form->control('equipe_casa_id', ['options' => $equipes]);
             echo $this->Form->control('equipe_fora_id', ['options' => $equipes]);
-            echo $this->Form->control('data_partida');
-            echo $this->Form->control('gols_fora');
-            echo $this->Form->control('gols_casa');
+            echo $this->Form->control('data_partida', ['minYear' => 1950, 'maxYear' => date('Y')]);
+            echo $this->Form->control('gols_casa', ['label' => 'Gols da Equipe de Casa']);
+            echo $this->Form->control('gols_fora', ['label' => 'Gols da Equipe de Fora']);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
