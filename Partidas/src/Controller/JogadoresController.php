@@ -20,7 +20,7 @@ class JogadoresController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Equipes'],
+            'contain' => ['Equipes', 'Usuarios'],
         ];
         $jogadores = $this->paginate($this->Jogadores);
 
@@ -37,7 +37,7 @@ class JogadoresController extends AppController
     public function view($id = null)
     {
         $jogadore = $this->Jogadores->get($id, [
-            'contain' => ['Equipes'],
+            'contain' => ['Equipes', 'Usuarios'],
         ]);
 
         $this->set('jogadore', $jogadore);
@@ -54,7 +54,7 @@ class JogadoresController extends AppController
         if ($this->request->is('post')) {
             $jogadore = $this->Jogadores->patchEntity($jogadore, $this->request->getData());
 
-            $jogadore->autor = $this->Auth->user('usuario_id'); // Para salvar o 'autor'
+            $jogadore->usuario_id = $this->Auth->user('usuario_id'); // Para salvar o 'autor'
             
             if ($this->Jogadores->save($jogadore)) {
                 $this->Flash->success(__('The jogadore has been saved.'));
@@ -64,7 +64,8 @@ class JogadoresController extends AppController
             $this->Flash->error(__('The jogadore could not be saved. Please, try again.'));
         }
         $equipes = $this->Jogadores->Equipes->find('list', ['limit' => 200]);
-        $this->set(compact('jogadore', 'equipes'));
+        $usuarios = $this->Jogadores->Usuarios->find('list', ['limit' => 200]);
+        $this->set(compact('jogadore', 'equipes', 'usuarios'));
     }
 
     /**

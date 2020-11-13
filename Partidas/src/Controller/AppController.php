@@ -53,6 +53,8 @@ class AppController extends Controller
 
         $this->loadComponent('Flash');
         
+        $this->loadModel('Usuarios');
+
         $this->loadComponent('Auth', [
             'loginAction' => [
                 'controller' => 'Usuarios',
@@ -82,5 +84,6 @@ class AppController extends Controller
          * see https://book.cakephp.org/3/en/controllers/components/security.html
          */
         //$this->loadComponent('Security');
+
     }
 }

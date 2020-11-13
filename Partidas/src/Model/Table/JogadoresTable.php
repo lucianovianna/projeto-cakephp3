@@ -44,6 +44,10 @@ class JogadoresTable extends Table
             'foreignKey' => 'equipe_id',
             'joinType' => 'INNER',
         ]);
+        $this->belongsTo('Usuarios', [
+            'foreignKey' => 'usuario_id',
+            'joinType' => 'INNER',
+        ]);
     }
 
     /**
