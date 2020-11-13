@@ -7,7 +7,7 @@
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Jogadore'), ['action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('New Jogador'), ['action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Equipes'), ['controller' => 'Equipes', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Equipe'), ['controller' => 'Equipes', 'action' => 'add']) ?></li>
     </ul>
@@ -22,7 +22,7 @@
                 <th scope="col"><?= $this->Paginator->sort('nome') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('sobrenome') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('idade') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('posicao') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('posicao', ['label' => 'Posição']) ?></th>
                 <th scope="col"><?= $this->Paginator->sort('created') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('modified') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('autor') ?></th>
@@ -33,14 +33,15 @@
             <?php foreach ($jogadores as $jogadore): ?>
             <tr>
                 <td><?= $this->Number->format($jogadore->jogador_id) ?></td>
-                <td><?= $jogadore->has('equipe') ? $this->Html->link($jogadore->equipe->equipe_id, ['controller' => 'Equipes', 'action' => 'view', $jogadore->equipe->equipe_id]) : '' ?></td>
+                <td><?= $jogadore->has('equipe') ? $this->Html->link($jogadore->equipe->nome, ['controller' => 'Equipes', 'action' => 'view', $jogadore->equipe->equipe_id]) : '' ?></td>
                 <td><?= h($jogadore->nome) ?></td>
                 <td><?= h($jogadore->sobrenome) ?></td>
                 <td><?= $this->Number->format($jogadore->idade) ?></td>
                 <td><?= h($jogadore->posicao) ?></td>
                 <td><?= h($jogadore->created) ?></td>
                 <td><?= h($jogadore->modified) ?></td>
-                <td><?= $this->Number->format($jogadore->autor) ?></td>
+                <td><?= $this->Html->link($jogadore->usuario->nome_de_usuario, ['controller' => 'Usuarios', 'action' => 'view', $jogadore->usuario_id])
+                ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $jogadore->jogador_id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $jogadore->jogador_id]) ?>

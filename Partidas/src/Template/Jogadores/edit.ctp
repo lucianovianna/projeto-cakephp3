@@ -27,7 +27,7 @@
             echo $this->Form->control('nome');
             echo $this->Form->control('sobrenome');
             echo $this->Form->control('idade');
-            echo $this->Form->control('posicao');
+            echo $this->Form->control('posicao', ['label' => 'Posição']);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

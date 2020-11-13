@@ -8,19 +8,23 @@
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('Edit Jogadore'), ['action' => 'edit', $jogadore->jogador_id]) ?> </li>
-        <li><?= $this->Form->postLink(__('Delete Jogadore'), ['action' => 'delete', $jogadore->jogador_id], ['confirm' => __('Are you sure you want to delete # {0}?', $jogadore->jogador_id)]) ?> </li>
+        <li><?= $this->Form->postLink(__('Delete Jogador'), ['action' => 'delete', $jogadore->jogador_id], ['confirm' => __('Are you sure you want to delete # {0}?', $jogadore->jogador_id)]) ?> </li>
         <li><?= $this->Html->link(__('List Jogadores'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Jogadore'), ['action' => 'add']) ?> </li>
+        <li><?= $this->Html->link(__('New Jogador'), ['action' => 'add']) ?> </li>
         <li><?= $this->Html->link(__('List Equipes'), ['controller' => 'Equipes', 'action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Equipe'), ['controller' => 'Equipes', 'action' => 'add']) ?> </li>
     </ul>
 </nav>
 <div class="jogadores view large-9 medium-8 columns content">
-    <h3><?= h($jogadore->jogador_id) ?></h3>
+    <h3><?= h($jogadore->nome) ?></h3>
     <table class="vertical-table">
         <tr>
+            <th scope="row"><?= __('Jogador Id') ?></th>
+            <td><?= $this->Number->format($jogadore->jogador_id) ?></td>
+        </tr>
+        <tr>
             <th scope="row"><?= __('Equipe') ?></th>
-            <td><?= $jogadore->has('equipe') ? $this->Html->link($jogadore->equipe->equipe_id, ['controller' => 'Equipes', 'action' => 'view', $jogadore->equipe->equipe_id]) : '' ?></td>
+            <td><?= $jogadore->has('equipe') ? $this->Html->link($jogadore->equipe->nome, ['controller' => 'Equipes', 'action' => 'view', $jogadore->equipe->equipe_id]) : '' ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Nome') ?></th>
@@ -35,16 +39,12 @@
             <td><?= h($jogadore->posicao) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Jogador Id') ?></th>
-            <td><?= $this->Number->format($jogadore->jogador_id) ?></td>
-        </tr>
-        <tr>
             <th scope="row"><?= __('Idade') ?></th>
             <td><?= $this->Number->format($jogadore->idade) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Autor') ?></th>
-            <td><?= $this->Number->format($jogadore->autor) ?></td>
+            <td><?= $jogadore->has('usuario') ? $this->Html->link($jogadore->usuario->nome_de_usuario, ['controller' => 'Usuarios', 'action' => 'view', $jogadore->usuario->usuario_id]) : '' ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Created') ?></th>
