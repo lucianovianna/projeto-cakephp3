@@ -50,6 +50,9 @@ class EquipesController extends AppController
         $equipe = $this->Equipes->newEntity();
         if ($this->request->is('post')) {
             $equipe = $this->Equipes->patchEntity($equipe, $this->request->getData());
+
+            $equipe->autor = $this->Auth->user('usuario_id'); // Para salvar o 'autor'
+
             if ($this->Equipes->save($equipe)) {
                 $this->Flash->success(__('The equipe has been saved.'));
 

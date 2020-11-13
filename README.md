@@ -32,3 +32,4 @@
         - $jogadore->autor = $this->Auth->user('usuario_id'); // Para salvar o 'autor'
             - Colocar no add(), após a post request;
     
+    
