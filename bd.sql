@@ -6,7 +6,7 @@
     - jogadores
 */
 
--- Se o mysql não tiver entrando
+-- Se o mysql não tiver entrando:
 -- sudo /etc/init.d/mysql start
 
 DROP SCHEMA IF EXISTS partidas;
@@ -16,17 +16,18 @@ USE partidas;
 
 CREATE TABLE usuarios (
     usuario_id INT AUTO_INCREMENT PRIMARY KEY,
-    nome_de_usuario VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL,
+    nome_de_usuario VARCHAR(255) UNIQUE NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
     senha VARCHAR(255) NOT NULL,
     created DATETIME,
     modified DATETIME
 );
-
+-- ALTER TABLE usuarios MODIFY nome_de_usuario VARCHAR(255) UNIQUE NOT NULL;
+-- ALTER TABLE usuarios MODIFY email VARCHAR(255) UNIQUE NOT NULL;
 
 CREATE TABLE equipes (
     equipe_id INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(255) NOT NULL,
+    nome VARCHAR(255) UNIQUE NOT NULL,
     data_fundacao DATE NOT NULL,
     created DATETIME,
     modified DATETIME,
@@ -34,7 +35,7 @@ CREATE TABLE equipes (
 
     CONSTRAINT FK_usuario_id_Equipe FOREIGN KEY (usuario_id) REFERENCES usuarios(usuario_id)
 );
-
+-- ALTER TABLE equipes MODIFY nome VARCHAR(255) UNIQUE NOT NULL; 
 
 CREATE TABLE jogadores (
     jogador_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -73,18 +74,13 @@ CREATE TABLE partidas (
 INSERT INTO usuarios(nome_de_usuario, email, senha, created, modified) 
 VALUES ("Padrão", "usuario@teste.com", "password", NOW(), NOW());
 
-
-
 INSERT INTO equipes(nome, data_fundacao, created, modified, usuario_id) 
 VALUES ("Goiás", "1980-10-10", NOW(), NOW(), 1),
     ("Vila Nova", "1981-10-10", NOW(), NOW(), 1);
 
-
-
 INSERT INTO jogadores(equipe_id, nome, sobrenome, idade, posicao, created, modified, usuario_id) 
 VALUES (1, "Fulano", "da Silva", "35", "Goleiro", NOW(), NOW(), 1),
     (2, "Ciclano", "Souza", "33", "Zagueiro", NOW(), NOW(), 1);
-
 
 
 INSERT INTO partidas(equipe_casa_id, equipe_fora_id, data_partida, gols_casa, gols_fora, created, modified, usuario_id)
