@@ -17,10 +17,10 @@
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('equipe_id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('nome') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('data_fundacao') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('data_fundacao', ['label' => 'Data de Fundação']) ?></th>
                 <th scope="col"><?= $this->Paginator->sort('created') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('modified') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('autor') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('usuario_id', ['label' => 'Autor']) ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -32,7 +32,7 @@
                 <td><?= h($equipe->data_fundacao) ?></td>
                 <td><?= h($equipe->created) ?></td>
                 <td><?= h($equipe->modified) ?></td>
-                <td><?= $this->Number->format($equipe->autor) ?></td>
+                <td><?= $this->Html->link($equipe->usuario->nome_de_usuario, ['controller' => 'Usuarios', 'action' => 'view', $equipe->usuario_id]) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $equipe->equipe_id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $equipe->equipe_id]) ?>

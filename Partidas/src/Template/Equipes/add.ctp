@@ -16,7 +16,11 @@
         <legend><?= __('Add Equipe') ?></legend>
         <?php
             echo $this->Form->control('nome');
-            echo $this->Form->control('data_fundacao',);
+            echo $this->Form->control('data_fundacao', [
+                'label' => 'Data de Fundação',
+                'minYear' => 1900,
+                'maxYear' => date('Y')
+            ]);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

@@ -37,6 +37,11 @@ class EquipesTable extends Table
         $this->setPrimaryKey('equipe_id');
 
         $this->addBehavior('Timestamp');
+
+        $this->belongsTo('Usuarios', [
+            'foreignKey' => 'usuario_id',
+            'joinType' => 'INNER',
+        ]);
     }
 
     /**

@@ -19,6 +19,10 @@ class EquipesController extends AppController
      */
     public function index()
     {
+        $this->paginate = [
+            'contain' => ['Usuarios'],
+        ];
+        
         $equipes = $this->paginate($this->Equipes);
 
         $this->set(compact('equipes'));
@@ -34,7 +38,7 @@ class EquipesController extends AppController
     public function view($id = null)
     {
         $equipe = $this->Equipes->get($id, [
-            'contain' => [],
+            'contain' => ['Usuarios'],
         ]);
 
         $this->set('equipe', $equipe);
@@ -60,7 +64,9 @@ class EquipesController extends AppController
             }
             $this->Flash->error(__('The equipe could not be saved. Please, try again.'));
         }
-        $this->set(compact('equipe'));
+        $usuarios = $this->Equipes->Usuarios->find('list', ['limit' => 200]);
+
+        $this->set(compact('equipe', 'usuarios'));
     }
 
     /**
