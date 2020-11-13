@@ -49,10 +49,6 @@ class PartidasTable extends Table
             'foreignKey' => 'equipe_fora_id',
             'joinType' => 'INNER',
         ]);
-        $this->belongsTo('Usuarios', [
-            'foreignKey' => 'usuario_id',
-            'joinType' => 'INNER',
-        ]);
     }
 
     /**

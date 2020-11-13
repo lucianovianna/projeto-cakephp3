@@ -25,11 +25,13 @@ class JogadoresFixture extends TestFixture
         'modified' => ['type' => 'datetime', 'length' => null, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null],
         'autor' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         '_indexes' => [
-            'equipe_id' => ['type' => 'index', 'columns' => ['equipe_id'], 'length' => []],
+            'FK_autor_Jogador' => ['type' => 'index', 'columns' => ['autor'], 'length' => []],
+            'FK_equipe_id_Jogador' => ['type' => 'index', 'columns' => ['equipe_id'], 'length' => []],
         ],
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['jogador_id'], 'length' => []],
-            'jogadores_ibfk_1' => ['type' => 'foreign', 'columns' => ['equipe_id'], 'references' => ['equipes', 'equipe_id'], 'update' => 'noAction', 'delete' => 'noAction', 'length' => []],
+            'FK_autor_Jogador' => ['type' => 'foreign', 'columns' => ['autor'], 'references' => ['usuarios', 'usuario_id'], 'update' => 'noAction', 'delete' => 'noAction', 'length' => []],
+            'FK_equipe_id_Jogador' => ['type' => 'foreign', 'columns' => ['equipe_id'], 'references' => ['equipes', 'equipe_id'], 'update' => 'noAction', 'delete' => 'noAction', 'length' => []],
         ],
         '_options' => [
             'engine' => 'InnoDB',
@@ -52,8 +54,8 @@ class JogadoresFixture extends TestFixture
                 'sobrenome' => 'Lorem ipsum dolor sit amet',
                 'idade' => 1,
                 'posicao' => 'Lorem ipsum dolor sit amet',
-                'created' => '2020-11-12 13:11:37',
-                'modified' => '2020-11-12 13:11:37',
+                'created' => '2020-11-13 12:24:43',
+                'modified' => '2020-11-13 12:24:43',
                 'autor' => 1,
             ],
         ];

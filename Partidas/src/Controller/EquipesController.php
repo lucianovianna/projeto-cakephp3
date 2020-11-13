@@ -3,7 +3,6 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 
-
 /**
  * Equipes Controller
  *
@@ -51,11 +50,6 @@ class EquipesController extends AppController
         $equipe = $this->Equipes->newEntity();
         if ($this->request->is('post')) {
             $equipe = $this->Equipes->patchEntity($equipe, $this->request->getData());
-
-            $equipe->autor = $this->Auth->user('usuario_id'); // Para salvar o 'autor'
-            //$newData = ['user_id' => $this->Auth->user('id')];
-            //$article = $this->Articles->patchEntity($article, $newData);
-
             if ($this->Equipes->save($equipe)) {
                 $this->Flash->success(__('The equipe has been saved.'));
 

@@ -17,6 +17,7 @@ use Cake\ORM\Entity;
  * @property int|null $autor
  *
  * @property \App\Model\Entity\Equipe $equipe
+ * @property \App\Model\Entity\Usuario $usuario
  */
 class Partida extends Entity
 {
@@ -39,5 +40,6 @@ class Partida extends Entity
         'modified' => true,
         'autor' => true,
         'equipe' => true,
+        'usuario' => true,
     ];
 }

@@ -32,7 +32,7 @@
                 <td><?= h($equipe->data_fundacao) ?></td>
                 <td><?= h($equipe->created) ?></td>
                 <td><?= h($equipe->modified) ?></td>
-                <td><?= $this->Html->link($equipe->autor, ['controller' => 'Usuarios', 'action' => 'view', $equipe->autor]) ?></td>
+                <td><?= $this->Number->format($equipe->autor) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $equipe->equipe_id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $equipe->equipe_id]) ?>

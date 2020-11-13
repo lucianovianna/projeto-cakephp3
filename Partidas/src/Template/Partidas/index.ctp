@@ -10,6 +10,8 @@
         <li><?= $this->Html->link(__('New Partida'), ['action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Equipes'), ['controller' => 'Equipes', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Equipe'), ['controller' => 'Equipes', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Usuarios'), ['controller' => 'Usuarios', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Usuario'), ['controller' => 'Usuarios', 'action' => 'add']) ?></li>
     </ul>
 </nav>
 <div class="partidas index large-9 medium-8 columns content">
@@ -33,24 +35,14 @@
             <?php foreach ($partidas as $partida): ?>
             <tr>
                 <td><?= $this->Number->format($partida->partida_id) ?></td>
-                <td>
-                    <?= $this->Html->link($partida->equipe_casa_id,  ['controller' => 'Equipes', 'action' => 'view', $partida->equipe_casa_id])
-                    //$this->Number->format($partida->equipe_casa_id) ?>
-                </td>
-                <td>
-                    <?= $this->Html->link($partida->equipe_fora_id,  ['controller' => 'Equipes', 'action' => 'view', $partida->equipe_fora_id])
-                    //$partida->has('equipe') ? $this->Html->link($partida->equipe->equipe_id, ['controller' => 'Equipes', 'action' => 'view', $partida->equipe->equipe_id]) : '' 
-                    ?>
-                </td>
+                <td><?= $this->Number->format($partida->equipe_casa_id) ?></td>
+                <td><?= $partida->has('equipe') ? $this->Html->link($partida->equipe->equipe_id, ['controller' => 'Equipes', 'action' => 'view', $partida->equipe->equipe_id]) : '' ?></td>
                 <td><?= h($partida->data_partida) ?></td>
                 <td><?= $this->Number->format($partida->gols_fora) ?></td>
                 <td><?= $this->Number->format($partida->gols_casa) ?></td>
                 <td><?= h($partida->created) ?></td>
                 <td><?= h($partida->modified) ?></td>
-                <td>
-                    <?= $this->Html->link($partida->autor,  ['controller' => 'Usuarios', 'action' => 'view', $partida->autor]) 
-                    //$this->Number->format($partida->autor) ?>
-                </td>
+                <td><?= $this->Number->format($partida->autor) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $partida->partida_id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $partida->partida_id]) ?>

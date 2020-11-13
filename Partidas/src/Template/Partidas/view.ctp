@@ -13,6 +13,8 @@
         <li><?= $this->Html->link(__('New Partida'), ['action' => 'add']) ?> </li>
         <li><?= $this->Html->link(__('List Equipes'), ['controller' => 'Equipes', 'action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Equipe'), ['controller' => 'Equipes', 'action' => 'add']) ?> </li>
+        <li><?= $this->Html->link(__('List Usuarios'), ['controller' => 'Usuarios', 'action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('New Usuario'), ['controller' => 'Usuarios', 'action' => 'add']) ?> </li>
     </ul>
 </nav>
 <div class="partidas view large-9 medium-8 columns content">

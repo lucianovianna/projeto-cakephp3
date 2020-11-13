@@ -37,7 +37,7 @@ class PartidasController extends AppController
     public function view($id = null)
     {
         $partida = $this->Partidas->get($id, [
-            'contain' => ['Equipes'],
+            'contain' => ['Equipes', 'Usuarios'],
         ]);
 
         $this->set('partida', $partida);
@@ -53,9 +53,6 @@ class PartidasController extends AppController
         $partida = $this->Partidas->newEntity();
         if ($this->request->is('post')) {
             $partida = $this->Partidas->patchEntity($partida, $this->request->getData());
-
-            $partida->autor = $this->Auth->user('usuario_id'); // Para salvar o 'autor'
-
             if ($this->Partidas->save($partida)) {
                 $this->Flash->success(__('The partida has been saved.'));
 
@@ -64,7 +61,8 @@ class PartidasController extends AppController
             $this->Flash->error(__('The partida could not be saved. Please, try again.'));
         }
         $equipes = $this->Partidas->Equipes->find('list', ['limit' => 200]);
-        $this->set(compact('partida', 'equipes'));
+        $usuarios = $this->Partidas->Usuarios->find('list', ['limit' => 200]);
+        $this->set(compact('partida', 'equipes', 'usuarios'));
     }
 
     /**
@@ -89,7 +87,8 @@ class PartidasController extends AppController
             $this->Flash->error(__('The partida could not be saved. Please, try again.'));
         }
         $equipes = $this->Partidas->Equipes->find('list', ['limit' => 200]);
-        $this->set(compact('partida', 'equipes'));
+        $usuarios = $this->Partidas->Usuarios->find('list', ['limit' => 200]);
+        $this->set(compact('partida', 'equipes', 'usuarios'));
     }
 
     /**

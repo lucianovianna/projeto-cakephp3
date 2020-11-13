@@ -14,18 +14,22 @@
     </ul>
 </nav>
 <div class="equipes view large-9 medium-8 columns content">
-    <h3><?= h($equipe->nome) ?></h3>
+    <h3><?= h($equipe->equipe_id) ?></h3>
     <table class="vertical-table">
-        <tr>
-            <th scope="row"><?= __('Equipe Id') ?></th>
-            <td><?= $this->Number->format($equipe->equipe_id) ?></td>
-        </tr>
         <tr>
             <th scope="row"><?= __('Nome') ?></th>
             <td><?= h($equipe->nome) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Data de Fundação') ?></th>
+            <th scope="row"><?= __('Equipe Id') ?></th>
+            <td><?= $this->Number->format($equipe->equipe_id) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Autor') ?></th>
+            <td><?= $this->Number->format($equipe->autor) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Data Fundacao') ?></th>
             <td><?= h($equipe->data_fundacao) ?></td>
         </tr>
         <tr>
@@ -35,10 +39,6 @@
         <tr>
             <th scope="row"><?= __('Modified') ?></th>
             <td><?= h($equipe->modified) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Autor') ?></th>
-            <td><?= $this->Html->link($equipe->autor,  ['controller' => 'Usuarios', 'action' => 'view', $equipe->autor]) ?></td>
         </tr>
     </table>
 </div>

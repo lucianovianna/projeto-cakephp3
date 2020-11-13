@@ -25,6 +25,7 @@ class PartidasTableTest extends TestCase
     public $fixtures = [
         'app.Partidas',
         'app.Equipes',
+        'app.Usuarios',
     ];
 
     /**
