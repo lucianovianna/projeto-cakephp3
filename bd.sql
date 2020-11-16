@@ -4,10 +4,12 @@
     - equipes
     - partidas
     - jogadores
+
+
+Se o mysql não tiver entrando:
+sudo /etc/init.d/mysql start
 */
 
--- Se o mysql não tiver entrando:
--- sudo /etc/init.d/mysql start
 
 DROP SCHEMA IF EXISTS partidas;
 CREATE DATABASE partidas;
@@ -70,7 +72,7 @@ CREATE TABLE partidas (
 );
 
 
-
+/*
 INSERT INTO usuarios(nome_de_usuario, email, senha, created, modified) 
 VALUES ("Padrão", "usuario@teste.com", "password", NOW(), NOW());
 
@@ -85,20 +87,38 @@ VALUES (1, "Fulano", "da Silva", "35", "Goleiro", NOW(), NOW(), 1),
 
 INSERT INTO partidas(equipe_casa_id, equipe_fora_id, data_partida, gols_casa, gols_fora, created, modified, usuario_id)
 VALUES (2, 1, NOW(), 2, 2, NOW(), NOW(), 1);
+*/
 
 
-/* -- Consulta as partidas, mostrando a equipe da casa e a de fora
-SELECT eq.nome AS Equipe_da_Casa, eq2.nome AS Equipe_de_Fora, pt.data_partida
+-- RELATÓRIOS:
+-- Todos os Jogos: Time casa, Time visitante, gols casa, gols visitante:
+SELECT eq.nome AS Equipe_da_Casa, eq2.nome AS Equipe_de_Fora, pt.gols_casa AS Gols_Casa, pt.gols_fora AS Gols_Fora, pt.data_partida
 FROM partidas pt 
 JOIN equipes eq ON eq.equipe_id = pt.equipe_casa_id 
 JOIN equipes eq2 ON eq2.equipe_id = pt.equipe_fora_id
 ORDER BY pt.data_partida DESC;
-*/
 
-/* -- Consulta o num. de jogadores por equipe.
+
+-- Times com mais vitorias: Time, numero de gols, numero de vitorias;
+SELECT nome, count(CASE WHEN pt.gols_casa > pt.gols_fora OR pt2.gols_fora > pt2.gols_casa THEN 1 ELSE 0 END) AS Vitorias, SUM(pt.gols_casa AND pt2.gols_fora) AS Saldo_de_Gols 
+FROM equipes AS eq
+JOIN partidas pt ON eq.equipe_id = pt.equipe_casa_id   -- quando o time é o de casa
+JOIN partidas pt2 ON eq.equipe_id = pt2.equipe_fora_id -- quando o time é o de fora
+GROUP BY eq.nome
+ORDER BY Vitorias DESC;
+-- NECESSITA DE CORREÇÃO
+
+
+
+-- Jogadores com mais vitorias: Jogador, numero de vitorias.
+
+
+
+
+ -- Consulta o num. de jogadores por equipe.
 SELECT count(j.jogador_id) AS Num_de_Jogadores, e.nome FROM jogadores AS j
-INNER JOIN equipes AS e ON j.equipe_id = e.equipe_id
+JOIN equipes AS e ON j.equipe_id = e.equipe_id
 GROUP BY e.nome; 
-*/
+
 
 
