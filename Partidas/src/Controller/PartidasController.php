@@ -53,7 +53,7 @@ class PartidasController extends AppController
         $partida = $this->Partidas->newEntity();
         if ($this->request->is('post')) {
             $partida = $this->Partidas->patchEntity($partida, $this->request->getData());
-
+            
             $partida->usuario_id = $this->Auth->user('usuario_id'); // Para salvar o 'autor'
             
             if ($this->Partidas->save($partida)) {
