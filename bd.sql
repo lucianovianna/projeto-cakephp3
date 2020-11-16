@@ -87,11 +87,18 @@ INSERT INTO partidas(equipe_casa_id, equipe_fora_id, data_partida, gols_casa, go
 VALUES (2, 1, NOW(), 2, 2, NOW(), NOW(), 1);
 
 
-/*
+/* -- Consulta as partidas, mostrando a equipe da casa e a de fora
 SELECT eq.nome AS Equipe_da_Casa, eq2.nome AS Equipe_de_Fora, pt.data_partida
 FROM partidas pt 
 JOIN equipes eq ON eq.equipe_id = pt.equipe_casa_id 
-JOIN equipes eq2 ON eq2.equipe_id = pt.equipe_fora_id;
+JOIN equipes eq2 ON eq2.equipe_id = pt.equipe_fora_id
+ORDER BY pt.data_partida DESC;
+*/
+
+/* -- Consulta o num. de jogadores por equipe.
+SELECT count(j.jogador_id) AS Num_de_Jogadores, e.nome FROM jogadores AS j
+INNER JOIN equipes AS e ON j.equipe_id = e.equipe_id
+GROUP BY e.nome; 
 */
 
 
