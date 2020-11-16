@@ -76,9 +76,14 @@
                 ]
             );
           ```
-        
+- Adicionando itens ao banco de dados:
+    - Usei o generatedata.com (https://github.com/benkeen/generatedata)
 
 
+- Relatórios:
+    - Todos os Jogos: Time casa, Time visitante, gols casa, gols visitante;
+    - Times com mais vitorias: Time, numero de gols, numero de vitorias;
+    - Jogadores com mais vitorias: Jogador, numero de vitorias.
 
 
 
