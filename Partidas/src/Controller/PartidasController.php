@@ -119,10 +119,20 @@ class PartidasController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $partida = $this->Partidas->get($id);
-        if ($this->Partidas->delete($partida)) {
+        /*if ($this->Partidas->delete($partida)) {
             $this->Flash->success(__('The partida has been deleted.'));
         } else {
             $this->Flash->error(__('The partida could not be deleted. Please, try again.'));
+        }*/
+        try {
+            $this->Partidas->delete($partida);
+            $this->Flash->success(__('A partida foi deletada.'));
+        } catch (\PDOException $e) {
+            $error = 'ERRO: A partida que você quer deletar está associado com outros items.';
+            $this->Flash->error(__($error));
+
+        } catch (Exception $e) {
+            $this->Flash->error(__("ERRO: A partida não pode ser deletada."));
         }
 
         return $this->redirect(['action' => 'index']);

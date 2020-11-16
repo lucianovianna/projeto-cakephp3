@@ -116,10 +116,21 @@ class JogadoresController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $jogadore = $this->Jogadores->get($id);
-        if ($this->Jogadores->delete($jogadore)) {
+        
+        /*if ($this->Jogadores->delete($jogadore)) {
             $this->Flash->success(__('The jogadore has been deleted.'));
         } else {
             $this->Flash->error(__('The jogadore could not be deleted. Please, try again.'));
+        }*/
+        try {
+            $this->Jogadores->delete($jogadore);
+            $this->Flash->success(__('O jogador foi deletado.'));
+        } catch (\PDOException $e) {
+            $error = 'ERRO: O jogador que você quer deletar está associado com outros items.';
+            $this->Flash->error(__($error));
+
+        } catch (Exception $e) {
+            $this->Flash->error(__("ERRO: O jogador não pode ser deletado."));
         }
 
         return $this->redirect(['action' => 'index']);

@@ -104,10 +104,22 @@ class EquipesController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $equipe = $this->Equipes->get($id);
-        if ($this->Equipes->delete($equipe)) {
+        
+        /*if ($this->Equipes->delete($equipe, false)) {
             $this->Flash->success(__('The equipe has been deleted.'));
         } else {
             $this->Flash->error(__('The equipe could not be deleted. Please, try again.'));
+        }*/
+        try {
+            $this->Equipes->delete($equipe);
+            $this->Flash->success(__('A equipe foi deletada.'));
+        } 
+        catch (\PDOException $e) {
+            $error = 'ERRO: A equipe que você quer deletar está associada com outros items. (Jogadores ou Partidas)';
+            $this->Flash->error(__($error));
+        }
+        catch (Exception $e) {
+            $this->Flash->error(__("ERRO: A equipe não pode ser deletada."));
         }
 
         return $this->redirect(['action' => 'index']);

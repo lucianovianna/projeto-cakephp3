@@ -120,10 +120,20 @@ class UsuariosController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $usuario = $this->Usuarios->get($id);
-        if ($this->Usuarios->delete($usuario)) {
+
+        /*if ($this->Usuarios->delete($usuario, true)) {
             $this->Flash->success(__('The usuario has been deleted.'));
         } else {
             $this->Flash->error(__('The usuario could not be deleted. Please, try again.'));
+        }*/
+        try {
+            $this->Usuarios->delete($usuario);
+            $this->Flash->success(__('O usuário foi deletado.'));
+        } catch (\PDOException $e) {
+            $error = 'ERRO: O Usuário que você quer deletar está associado com outros items.';
+            $this->Flash->error(__($error));
+        } catch (Exception $e) {
+            $this->Flash->error(__("ERRO: O Usuário não pode ser deletado."));
         }
 
         return $this->redirect(['action' => 'index']);
