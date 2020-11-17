@@ -10,11 +10,11 @@ Se o mysql não tiver entrando:
 sudo /etc/init.d/mysql start
 */
 
-
+/*
 DROP SCHEMA IF EXISTS partidas;
 CREATE DATABASE partidas;
 USE partidas;
-
+*/
 
 CREATE TABLE usuarios (
     usuario_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -82,27 +82,20 @@ JOIN equipes eq2 ON eq2.equipe_id = pt.equipe_fora_id
 ORDER BY pt.data_partida DESC;
 
 -- Times com mais vitorias: Time, numero de gols, numero de vitorias;
+-- v1
 SELECT eqA.nome,
-    count(
-        CASE
-            WHEN pt.gols_casa > pt.gols_fora
-            OR pt2.gols_fora > pt2.gols_casa THEN 1
-            ELSE 0
-        END
-    ) AS Vitorias,
-    SUM(
-        pt.gols_casa
-        AND pt2.gols_fora
-    ) AS Saldo_de_Gols
+    count(IF(pt.gols_casa > pt.gols_fora, 1, NULL)) AS Vitorias,
+    SUM(pt.gols_casa - pt.gols_fora) AS Saldo_de_Gols
 FROM partidas AS pt
-    JOIN equipes eqA ON eqA.equipe_id = pt.equipe_casa_id -- quando o time é o de casa
-    JOIN equipes eqB ON eqB.equipe_id = pt.equipe_fora_id -- quando o time é o de fora
-GROUP BY eq.nome
+    JOIN equipes eqA ON eqA.equipe_id = pt.equipe_casa_id
+    JOIN equipes eqB ON eqB.equipe_id = pt.equipe_fora_id
+GROUP BY eqA.nome
 ORDER BY Vitorias DESC;
 -- NECESSITA DE CORREÇÃO!!!!!!!!!!!!
 
 
 -- Times com mais vitorias: Time, numero de gols, numero de vitorias;
+-- v2
 SELECT nome,
     count(
         CASE
@@ -112,13 +105,13 @@ SELECT nome,
                     WHEN eq.equipe_id = pt2.equipe_fora_id THEN (
                         CASE
                             WHEN pt2.gols_fora > pt2.gols_casa THEN 1
-                            ELSE 0
+                            ELSE NULL
                         END
                     )
-                    ELSE 0
+                    ELSE NULL
                 END
             ) THEN 1
-            ELSE 0
+            ELSE NULL
         END
     ) AS Vitorias,
     SUM(pt.gols_casa),
@@ -129,8 +122,42 @@ SELECT nome,
         (pt.gols_casa - pt.gols_fora) + (pt2.gols_fora - pt2.gols_casa)
     ) AS Saldo_de_Gols
 FROM equipes AS eq
-    JOIN partidas pt ON eq.equipe_id = pt.equipe_casa_id -- quando o time é o de casa
-    JOIN partidas pt2 ON eq.equipe_id = pt2.equipe_fora_id -- quando o time é o de fora
+    JOIN partidas pt ON eq.equipe_id = pt.equipe_casa_id
+    JOIN partidas pt2 ON eq.equipe_id = pt2.equipe_fora_id
+GROUP BY eq.nome
+ORDER BY Vitorias DESC;
+-- NECESSITA DE CORREÇÃO!!!!!!
+
+-- Times com mais vitorias: Time, numero de gols, numero de vitorias;
+-- v3
+SELECT nome,
+    count(
+        CASE
+            WHEN pt.gols_casa > pt.gols_fora
+            OR (
+                CASE
+                    WHEN eq.equipe_id = pt2.equipe_fora_id THEN (
+                        CASE
+                            WHEN pt2.gols_fora > pt2.gols_casa THEN 1
+                            ELSE NULL
+                        END
+                    )
+                    ELSE NULL
+                END
+            ) THEN 1
+            ELSE NULL
+        END
+    ) AS Vitorias,
+    SUM(pt.gols_casa),
+    SUM(pt.gols_fora),
+    SUM(pt2.gols_fora),
+    SUM(pt2.gols_casa),
+    SUM(
+        (pt.gols_casa - pt.gols_fora) + (pt2.gols_fora - pt2.gols_casa)
+    ) AS Saldo_de_Gols
+FROM equipes AS eq
+    JOIN partidas pt ON eq.equipe_id = pt.equipe_casa_id
+    JOIN partidas pt2 ON eq.equipe_id = pt2.equipe_fora_id
 GROUP BY eq.nome
 ORDER BY Vitorias DESC;
 -- NECESSITA DE CORREÇÃO!!!!!!
