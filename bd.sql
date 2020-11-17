@@ -86,6 +86,7 @@ FROM partidas AS pt
 ORDER BY pt.data_partida DESC;
 -- Concluído!
 
+
 -- Times com mais vitorias: Time, numero de gols, numero de vitorias;
 SELECT eq.nome,
     count(
@@ -95,7 +96,13 @@ SELECT eq.nome,
             IF(pt.gols_fora > pt.gols_casa, 1, NULL)
         )
     ) AS Vitorias,
-    SUM(pt.gols_fora - pt.gols_casa) AS Saldo_de_Gols
+    SUM(
+        IF(
+            eq.equipe_id = pt.equipe_casa_id,
+            pt.gols_casa - pt.gols_fora,
+            pt.gols_fora - pt.gols_casa
+        )
+    ) AS Saldo_de_Gols
 FROM partidas AS pt
     JOIN equipes eq ON eq.equipe_id = pt.equipe_casa_id
     OR eq.equipe_id = pt.equipe_fora_id
@@ -106,9 +113,10 @@ ORDER BY Vitorias DESC,
 -- Concluído!
 
 
-
 -- Jogadores com mais vitorias: Jogador, numero de vitorias.
+
 -- Em breve!
+
 
 
 
@@ -173,11 +181,11 @@ VALUES
 
 INSERT INTO partidas(equipe_casa_id, equipe_fora_id, data_partida, gols_casa, gols_fora, created, modified, usuario_id)
 VALUES 
-    (1, 2, NOW(), 3, 0, NOW(), NOW(), 1), -- +1 vit. eq. AAA111; -3 saldo eq. BBB222
+    (1, 2, NOW(), 3, 0, NOW(), NOW(), 1), -- +1 vit. e +3 saldo eq. AAA111; -3 saldo eq. BBB222
     (1, 3, NOW(), 2, 2, NOW(), NOW(), 1),
     (1, 4, NOW(), 2, 2, NOW(), NOW(), 1),
     (1, 5, NOW(), 2, 2, NOW(), NOW(), 1),
-    (2, 5, NOW(), 3, 0, NOW(), NOW(), 1), -- +1 vit. eq. BBB222; -3 saldo eq. DDD555
+    (2, 5, NOW(), 3, 0, NOW(), NOW(), 1), -- +1 vit. +3 saldo eq. BBB222; -3 saldo eq. EEE555
     (2, 4, NOW(), 2, 2, NOW(), NOW(), 1),
     (2, 3, NOW(), 2, 2, NOW(), NOW(), 1),
     (2, 1, NOW(), 2, 2, NOW(), NOW(), 1),
@@ -186,5 +194,5 @@ VALUES
     (3, 8, NOW(), 2, 2, NOW(), NOW(), 1),
     (3, 9, NOW(), 2, 2, NOW(), NOW(), 1),
     (3, 10, NOW(), 2, 2, NOW(), NOW(), 1),
-    (10, 1, NOW(), 6, 0, NOW(), NOW(), 1);  -- +1 vit eq JJJ100; -10 saldo eq AAA111
+    (10, 1, NOW(), 6, 0, NOW(), NOW(), 1);  -- +1 vit +6 saldo eq. JJJ100; -6 saldo eq AAA111
 
