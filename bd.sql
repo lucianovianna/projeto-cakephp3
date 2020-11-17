@@ -73,6 +73,7 @@ CREATE TABLE partidas (
 
 
 
+
 -- RELATÓRIOS:
 -- Todos os Jogos: Time casa, Time visitante, gols casa, gols visitante:
 SELECT eq.nome AS Equipe_da_Casa,
@@ -84,7 +85,7 @@ FROM partidas AS pt
     JOIN equipes eq ON eq.equipe_id = pt.equipe_casa_id
     JOIN equipes eq2 ON eq2.equipe_id = pt.equipe_fora_id
 ORDER BY pt.data_partida DESC;
--- Concluído!
+
 
 
 -- Times com mais vitorias: Time, numero de gols, numero de vitorias;
@@ -110,23 +111,31 @@ GROUP BY eq.nome
 ORDER BY Vitorias DESC,
     Saldo_de_Gols DESC,
     eq.nome ASC;
--- Concluído!
+
 
 
 -- Jogadores com mais vitorias: Jogador, numero de vitorias.
+SELECT concat(jg.nome, ' ', jg.sobrenome) as Nome,
+    count(
+        IF(
+            jg.equipe_id = pt.equipe_casa_id,
+            IF(pt.gols_casa > pt.gols_fora, 1, NULL),
+            IF(pt.gols_fora > pt.gols_casa, 1, NULL)
+        )
+    ) AS Vitorias
+FROM partidas AS pt
+    JOIN jogadores AS jg ON jg.equipe_id = pt.equipe_casa_id
+    OR jg.equipe_id = pt.equipe_fora_id
+GROUP BY jg.nome, jg.sobrenome
+ORDER BY Vitorias DESC,
+    Nome ASC;
 
--- Em breve!
 
 
-
-
-
-
- -- Consulta o num. de jogadores por equipe.
+-- Consulta o num. de jogadores por equipe.
 SELECT count(j.jogador_id) AS Num_de_Jogadores, e.nome FROM jogadores AS j
 JOIN equipes AS e ON j.equipe_id = e.equipe_id
 GROUP BY e.nome; 
- -- Concluido!
 
 
 
@@ -159,7 +168,11 @@ VALUES
 INSERT INTO jogadores(equipe_id, nome, sobrenome, idade, posicao, created, modified, usuario_id) 
 VALUES 
     (1, "Fulano", "da Silva", "35", "Goleiro", NOW(), NOW(), 1),
-    (2, "Ciclano", "Souza", "33", "Zagueiro", NOW(), NOW(), 1);
+    (2, "Ciclano", "Souza", "33", "Zagueiro", NOW(), NOW(), 1),
+    (2, "João", "Vitor", "35", "Goleiro", NOW(), NOW(), 2),
+    (5, "Luciano", "Costa", "35", "Zagueiro", NOW(), NOW(), 5),
+    (3, "Ulisses", "Santos", "35", "Meio Campo", NOW(), NOW(), 3),
+    (10, "Neymar", "Junior", "29", "Atacante", NOW(), NOW(), 5);
 
 
 INSERT INTO partidas(equipe_casa_id, equipe_fora_id, data_partida, gols_casa, gols_fora, created, modified, usuario_id)
