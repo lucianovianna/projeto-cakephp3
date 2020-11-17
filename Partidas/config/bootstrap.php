@@ -75,11 +75,6 @@ try {
     exit($e->getMessage() . "\n");
 }
 
-try {
-    Plugin::load('CsvView');
-} catch (\Exception $e) {
-    exit("Can't load CsvView\n" . $e->getMessage());
-}
 
 /*
  * Load an environment local configuration file to provide overrides to your configuration.
