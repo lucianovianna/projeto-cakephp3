@@ -74,93 +74,36 @@ CREATE TABLE partidas (
 
 
 -- RELATÓRIOS:
--- Todos os Jogos: Time casa, Time visitante, gols casa, gols visitante: -- concluido!
-SELECT eq.nome AS Equipe_da_Casa, eq2.nome AS Equipe_de_Fora, pt.gols_casa AS Gols_Casa, pt.gols_fora AS Gols_Fora, pt.data_partida
-FROM partidas AS pt 
-JOIN equipes eq ON eq.equipe_id = pt.equipe_casa_id 
-JOIN equipes eq2 ON eq2.equipe_id = pt.equipe_fora_id
-ORDER BY pt.data_partida DESC;
-
--- Times com mais vitorias: Time, numero de gols, numero de vitorias;
--- v1
-SELECT eqA.nome,
-    count(IF(pt.gols_casa > pt.gols_fora, 1, NULL)) AS Vitorias,
-    SUM(pt.gols_casa - pt.gols_fora) AS Saldo_de_Gols
+-- Todos os Jogos: Time casa, Time visitante, gols casa, gols visitante:
+SELECT eq.nome AS Equipe_da_Casa,
+    eq2.nome AS Equipe_de_Fora,
+    pt.gols_casa AS Gols_Casa,
+    pt.gols_fora AS Gols_Fora,
+    pt.data_partida
 FROM partidas AS pt
-    JOIN equipes eqA ON eqA.equipe_id = pt.equipe_casa_id
-    JOIN equipes eqB ON eqB.equipe_id = pt.equipe_fora_id
-GROUP BY eqA.nome
-ORDER BY Vitorias DESC;
--- NECESSITA DE CORREÇÃO!!!!!!!!!!!!
-
+    JOIN equipes eq ON eq.equipe_id = pt.equipe_casa_id
+    JOIN equipes eq2 ON eq2.equipe_id = pt.equipe_fora_id
+ORDER BY pt.data_partida DESC;
+-- Concluído!
 
 -- Times com mais vitorias: Time, numero de gols, numero de vitorias;
--- v2
-SELECT nome,
+SELECT eq.nome,
     count(
-        CASE
-            WHEN pt.gols_casa > pt.gols_fora
-            OR (
-                CASE
-                    WHEN eq.equipe_id = pt2.equipe_fora_id THEN (
-                        CASE
-                            WHEN pt2.gols_fora > pt2.gols_casa THEN 1
-                            ELSE NULL
-                        END
-                    )
-                    ELSE NULL
-                END
-            ) THEN 1
-            ELSE NULL
-        END
+        IF(
+            eq.equipe_id = pt.equipe_casa_id,
+            IF(pt.gols_casa > pt.gols_fora, 1, NULL),
+            IF(pt.gols_fora > pt.gols_casa, 1, NULL)
+        )
     ) AS Vitorias,
-    SUM(pt.gols_casa),
-    SUM(pt.gols_fora),
-    SUM(pt2.gols_fora),
-    SUM(pt2.gols_casa),
-    SUM(
-        (pt.gols_casa - pt.gols_fora) + (pt2.gols_fora - pt2.gols_casa)
-    ) AS Saldo_de_Gols
-FROM equipes AS eq
-    JOIN partidas pt ON eq.equipe_id = pt.equipe_casa_id
-    JOIN partidas pt2 ON eq.equipe_id = pt2.equipe_fora_id
+    SUM(pt.gols_fora - pt.gols_casa) AS Saldo_de_Gols
+FROM partidas AS pt
+    JOIN equipes eq ON eq.equipe_id = pt.equipe_casa_id
+    OR eq.equipe_id = pt.equipe_fora_id
 GROUP BY eq.nome
-ORDER BY Vitorias DESC;
--- NECESSITA DE CORREÇÃO!!!!!!
-
--- Times com mais vitorias: Time, numero de gols, numero de vitorias;
--- v3
-SELECT nome,
-    count(
-        CASE
-            WHEN pt.gols_casa > pt.gols_fora
-            OR (
-                CASE
-                    WHEN eq.equipe_id = pt2.equipe_fora_id THEN (
-                        CASE
-                            WHEN pt2.gols_fora > pt2.gols_casa THEN 1
-                            ELSE NULL
-                        END
-                    )
-                    ELSE NULL
-                END
-            ) THEN 1
-            ELSE NULL
-        END
-    ) AS Vitorias,
-    SUM(pt.gols_casa),
-    SUM(pt.gols_fora),
-    SUM(pt2.gols_fora),
-    SUM(pt2.gols_casa),
-    SUM(
-        (pt.gols_casa - pt.gols_fora) + (pt2.gols_fora - pt2.gols_casa)
-    ) AS Saldo_de_Gols
-FROM equipes AS eq
-    JOIN partidas pt ON eq.equipe_id = pt.equipe_casa_id
-    JOIN partidas pt2 ON eq.equipe_id = pt2.equipe_fora_id
-GROUP BY eq.nome
-ORDER BY Vitorias DESC;
--- NECESSITA DE CORREÇÃO!!!!!!
+ORDER BY Vitorias DESC,
+    Saldo_de_Gols DESC,
+    eq.nome ASC;
+-- Concluído!
 
 
 
@@ -169,11 +112,13 @@ ORDER BY Vitorias DESC;
 
 
 
+
+
  -- Consulta o num. de jogadores por equipe.
- -- Concluido!
 SELECT count(j.jogador_id) AS Num_de_Jogadores, e.nome FROM jogadores AS j
 JOIN equipes AS e ON j.equipe_id = e.equipe_id
 GROUP BY e.nome; 
+ -- Concluido!
 
 
 
@@ -224,5 +169,22 @@ VALUES
     (3, 8, NOW(), 2, 2, NOW(), NOW(), 1),
     (3, 9, NOW(), 2, 2, NOW(), NOW(), 1),
     (3, 10, NOW(), 2, 2, NOW(), NOW(), 1),
-    (10, 1, NOW(), 2, 2, NOW(), NOW(), 1);
+    (10, 1, NOW(), 2, 2, NOW(), NOW(), 1); -- apenas empates
+
+INSERT INTO partidas(equipe_casa_id, equipe_fora_id, data_partida, gols_casa, gols_fora, created, modified, usuario_id)
+VALUES 
+    (1, 2, NOW(), 3, 0, NOW(), NOW(), 1), -- +1 vit. eq. AAA111; -3 saldo eq. BBB222
+    (1, 3, NOW(), 2, 2, NOW(), NOW(), 1),
+    (1, 4, NOW(), 2, 2, NOW(), NOW(), 1),
+    (1, 5, NOW(), 2, 2, NOW(), NOW(), 1),
+    (2, 5, NOW(), 3, 0, NOW(), NOW(), 1), -- +1 vit. eq. BBB222; -3 saldo eq. DDD555
+    (2, 4, NOW(), 2, 2, NOW(), NOW(), 1),
+    (2, 3, NOW(), 2, 2, NOW(), NOW(), 1),
+    (2, 1, NOW(), 2, 2, NOW(), NOW(), 1),
+    (3, 6, NOW(), 2, 2, NOW(), NOW(), 1),
+    (3, 7, NOW(), 2, 2, NOW(), NOW(), 1),
+    (3, 8, NOW(), 2, 2, NOW(), NOW(), 1),
+    (3, 9, NOW(), 2, 2, NOW(), NOW(), 1),
+    (3, 10, NOW(), 2, 2, NOW(), NOW(), 1),
+    (10, 1, NOW(), 6, 0, NOW(), NOW(), 1);  -- +1 vit eq JJJ100; -10 saldo eq AAA111
 
