@@ -41,6 +41,7 @@ class PartidasController extends AppController
         $_serialize = 'data';
         $_header = ['Equipe_da_Casa', 'Equipe_de_Fora', 'Gols_Casa', 'Gols_Fora', 'Data_da_Partida'];
 
+        $this->set('_csvEncoding', 'UTF-16');
         $this->set(compact('data', '_serialize', '_header'));
 
         $this->viewBuilder()->className('CsvView.Csv');
@@ -79,7 +80,8 @@ class PartidasController extends AppController
 
         $_serialize = 'data';
         $_header = ['Equipe', 'Vitorias', 'Saldo_de_Gols'];
-
+        
+        $this->set('_csvEncoding', 'UTF-16');
         $this->set(compact('data', '_serialize', '_header'));
 
         $this->viewBuilder()->className('CsvView.Csv');
@@ -111,10 +113,9 @@ class PartidasController extends AppController
 
         $_serialize = 'data';
         $_header = ['Nome', 'Vitorias'];
-        $_csvEncoding = '';
         $_extract = ['Nome', 'Vitorias'];
 
-
+        $this->set('_csvEncoding', 'UTF-16');
         $this->set(compact('data', '_serialize', '_header', '_extract'));
 
         $this->viewBuilder()->className('CsvView.Csv');
