@@ -10,6 +10,7 @@ Se o mysql não tiver entrando:
 sudo /etc/init.d/mysql start
 */
 
+
 /*
 DROP SCHEMA IF EXISTS partidas;
 CREATE DATABASE partidas;
@@ -78,7 +79,6 @@ CREATE TABLE partidas (
 
 
 
-
 -- RELATÓRIOS:
 -- Todos os Jogos: Time casa, Time visitante, gols casa, gols visitante:
 SELECT eq.nome AS Equipe_da_Casa,
@@ -120,18 +120,19 @@ ORDER BY Vitorias DESC,
 
 
 -- Jogadores com mais vitorias: Jogador, numero de vitorias.
-SELECT concat(jg.nome, ' ', jg.sobrenome) as Nome,
+SELECT jg.jogador_id as ID,
+    concat(jg.nome, ' ', jg.sobrenome) as Nome,
     count(
         IF(
-            jg.equipe_id = pt.equipe_casa_id,
+            pt.equipe_casa_id = jg.equipe_id,
             IF(pt.gols_casa > pt.gols_fora, 1, NULL),
             IF(pt.gols_fora > pt.gols_casa, 1, NULL)
         )
     ) AS Vitorias
-FROM partidas AS pt
-    JOIN jogadores AS jg ON jg.equipe_id = pt.equipe_casa_id
-    OR jg.equipe_id = pt.equipe_fora_id
-GROUP BY jg.nome, jg.sobrenome
+FROM jogadores AS jg
+    JOIN partidas AS pt ON pt.equipe_casa_id = jg.equipe_id
+    OR pt.equipe_fora_id = jg.equipe_id
+GROUP BY ID
 ORDER BY Vitorias DESC,
     Nome ASC;
 
