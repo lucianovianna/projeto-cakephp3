@@ -39,12 +39,9 @@ class PartidasController extends AppController
         )->fetchAll('assoc');
 
         $_serialize = 'data';
-        //$_extract = ['eq.nome', 'eq2.nome', 'pt.gols_casa', 'pt.gols_fora', 'pt.data_partida'];
         $_header = ['Equipe_da_Casa', 'Equipe_de_Fora', 'Gols_Casa', 'Gols_Fora', 'Data_da_Partida'];
 
         $this->set(compact('data', '_serialize', '_header'));
-
-        //$this->set(compact('data', '_serialize'));
 
         $this->viewBuilder()->className('CsvView.Csv');
     }
@@ -113,9 +110,12 @@ class PartidasController extends AppController
         )->fetchAll('assoc');
 
         $_serialize = 'data';
-        $_header = ['ID', 'Nome', 'Vitorias'];
+        $_header = ['Nome', 'Vitorias'];
+        $_csvEncoding = '';
+        $_extract = ['Nome', 'Vitorias'];
 
-        $this->set(compact('data', '_serialize', '_header'));
+
+        $this->set(compact('data', '_serialize', '_header', '_extract'));
 
         $this->viewBuilder()->className('CsvView.Csv');
     }
