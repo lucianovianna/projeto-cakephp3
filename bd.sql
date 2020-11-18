@@ -24,9 +24,13 @@ CREATE TABLE usuarios (
     created DATETIME,
     modified DATETIME
 );
--- ALTER TABLE usuarios MODIFY nome_de_usuario VARCHAR(255) UNIQUE NOT NULL;
--- ALTER TABLE usuarios MODIFY email VARCHAR(255) UNIQUE NOT NULL;
 
+
+/*
+drop table partidas;
+drop table jogadores;
+drop table equipes;
+*/
 CREATE TABLE equipes (
     equipe_id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(255) UNIQUE NOT NULL,
@@ -37,7 +41,7 @@ CREATE TABLE equipes (
 
     CONSTRAINT FK_usuario_id_Equipe FOREIGN KEY (usuario_id) REFERENCES usuarios(usuario_id)
 );
--- ALTER TABLE equipes MODIFY nome VARCHAR(255) UNIQUE NOT NULL; 
+
 
 CREATE TABLE jogadores (
     jogador_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -70,6 +74,7 @@ CREATE TABLE partidas (
     CONSTRAINT FK_equipe_casa_Partida FOREIGN KEY (equipe_casa_id) REFERENCES equipes(equipe_id),
     CONSTRAINT FK_equipe_fora_Partida FOREIGN KEY (equipe_fora_id) REFERENCES equipes(equipe_id)
 );
+
 
 
 
