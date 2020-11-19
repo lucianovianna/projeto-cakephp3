@@ -95,12 +95,13 @@ $cakeDescription = 'CakePHP: the rapid development PHP framework';
         </div>
         <div class="columns larger-4 text-center">
             <h4> Relatórios </h4>
-            <li> <?= $this->Html->link(__('Todos os Jogos'), ['controller' => 'Partidas', 'action' => 'export']) ?> </li>
-            <li> <?= $this->Html->link(__('Times com mais vitorias'), ['controller' => 'Partidas', 'action' => 'export2']) ?>  </li>
-            <li> <?= $this->Html->link(__('Jogadores com mais vitorias'), ['controller' => 'Partidas', 'action' => 'export3']) ?>  </li>
+            <li> <?= $this->Html->link(__('Todos os Jogos'), ['controller' => 'Exports', 'action' => 'report1']) ?> </li>
+            <li> <?= $this->Html->link(__('Times com mais vitorias'), ['controller' => 'Exports', 'action' => 'report2']) ?>  </li>
+            <li> <?= $this->Html->link(__('Jogadores com mais vitorias'), ['controller' => 'Exports', 'action' => 'report3']) ?>  </li>
             <br><br>
         </div>
     </div>
 
 </body>
 </html>
+
