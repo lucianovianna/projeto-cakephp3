@@ -1,12 +1,5 @@
 /*
-- bd relacional
-    - usuarios
-    - equipes
-    - partidas
-    - jogadores
-
-
-Se o mysql não tiver entrando:
+Para iniciar o servidor mysql:
 sudo /etc/init.d/mysql start
 */
 
@@ -27,11 +20,6 @@ CREATE TABLE usuarios (
 );
 
 
-/*
-drop table partidas;
-drop table jogadores;
-drop table equipes;
-*/
 CREATE TABLE equipes (
     equipe_id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(255) UNIQUE NOT NULL,
@@ -75,7 +63,6 @@ CREATE TABLE partidas (
     CONSTRAINT FK_equipe_casa_Partida FOREIGN KEY (equipe_casa_id) REFERENCES equipes(equipe_id),
     CONSTRAINT FK_equipe_fora_Partida FOREIGN KEY (equipe_fora_id) REFERENCES equipes(equipe_id)
 );
-
 
 
 
@@ -142,9 +129,6 @@ ORDER BY Vitorias DESC,
 SELECT count(j.jogador_id) AS Num_de_Jogadores, e.nome FROM jogadores AS j
 JOIN equipes AS e ON j.equipe_id = e.equipe_id
 GROUP BY e.nome; 
-
-
-
 
 
 
