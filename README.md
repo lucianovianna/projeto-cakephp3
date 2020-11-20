@@ -98,7 +98,7 @@
             );
           ```
 - Adicionando itens ao banco de dados:
-    - Usei o generatedata.com (https://github.com/benkeen/generatedata)
+    - Foi utilizado o generatedata.com (https://github.com/benkeen/generatedata)
 
 
 - Relatórios:
@@ -162,7 +162,7 @@
                 ORDER BY Vitorias DESC,
                     Nome ASC;
               ```
-    - Instalando a extensão <a ref="https://github.com/FriendsOfCake/cakephp-csvview/tree/3.x">CsvView</a>
+    - Instalando a extensão <a href="https://github.com/FriendsOfCake/cakephp-csvview/tree/3.x">CsvView</a>
     - Criando o ExportsController
         - Criando uma função para cada relatório
             - Exemplo do relatório 1:
@@ -195,7 +195,7 @@
                     }
                   ``` 
     - Atualizando a Home Page:
-        - ``` ctp 
+        - ``` html 
             <div class="columns larger-4 text-center">
                 <h4> Relatórios </h4>
                 <li> <?= $this->Html->link(__('Todos os Jogos'), ['controller' => 'Exports', 'action' => 'report1']) ?> </li>
