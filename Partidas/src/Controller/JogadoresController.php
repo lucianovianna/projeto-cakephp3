@@ -129,7 +129,7 @@ class JogadoresController extends AppController
             $error = 'ERRO: O jogador que você quer deletar está associado com outros items.';
             $this->Flash->error(__($error));
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->Flash->error(__("ERRO: O jogador não pode ser deletado."));
         }
 
