@@ -135,7 +135,7 @@ class PartidasController extends AppController
             $error = 'ERRO: A partida que você quer deletar está associado com outros items.';
             $this->Flash->error(__($error));
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->Flash->error(__("ERRO: A partida não pode ser deletada."));
         }
 

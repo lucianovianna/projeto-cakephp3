@@ -132,7 +132,7 @@ class UsuariosController extends AppController
         } catch (\PDOException $e) {
             $error = 'ERRO: O Usuário que você quer deletar está associado com outros items.';
             $this->Flash->error(__($error));
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->Flash->error(__("ERRO: O Usuário não pode ser deletado."));
         }
 
