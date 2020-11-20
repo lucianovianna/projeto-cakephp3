@@ -52,7 +52,7 @@ $cakeDescription = 'CakePHP: the rapid development PHP framework';
             <h1>Sistema de Partidas</h1>
         </div>
     </header>
-    <div class="larger-4 text-center">
+    <div class="medium-4 text-center row">
         <span> 
             <?php 
                 if(is_null($this->request->session()->read('Auth.User.nome_de_usuario'))) 
@@ -75,25 +75,25 @@ $cakeDescription = 'CakePHP: the rapid development PHP framework';
         <br><hr><br>
     </div>
     <div class="rows">
-        <div class="columns larger-4 text-center">
+        <div class="columns medium-6 text-center">
             <h4> Equipes </h4>
             <li> <?= $this->Html->link(__('Cadastrar Equipe'), ['controller' => 'Equipes', 'action' => 'add']) ?> </li>
             <li> <?= $this->Html->link(__('Listar Equipes'), ['controller' => 'Equipes', 'action' => 'index']) ?> </li>
             <br><br>
         </div>
-        <div class="columns larger-4 text-center">
+        <div class="columns medium-6 text-center">
             <h4> Jogadores </h4>
             <li> <?= $this->Html->link(__('Cadastrar Jogador'), ['controller' => 'Jogadores', 'action' => 'add']) ?> </li>
             <li> <?= $this->Html->link(__('Listar Jogadores'), ['controller' => 'Jogadores', 'action' => 'index']) ?> </li>
             <br><br>
         </div>
-        <div class="columns larger-4 text-center">
+        <div class="columns medium-6 text-center">
             <h4> Partidas </h4>
             <li> <?= $this->Html->link(__('Cadastrar Partida'), ['controller' => 'Partidas', 'action' => 'add']) ?> </li>
             <li> <?= $this->Html->link(__('Listar Partidas'), ['controller' => 'Partidas', 'action' => 'index']) ?> </li>
             <br><br>
         </div>
-        <div class="columns larger-4 text-center">
+        <div class="columns medium-6 text-center">
             <h4> Relatórios </h4>
             <li> <?= $this->Html->link(__('Todos os Jogos'), ['controller' => 'Exports', 'action' => 'report1']) ?> </li>
             <li> <?= $this->Html->link(__('Times com mais vitorias'), ['controller' => 'Exports', 'action' => 'report2']) ?>  </li>
