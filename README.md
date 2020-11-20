@@ -29,6 +29,27 @@
     - bin/cake bake all partidas
 - Criado o sistema de autentificação
     - Foi utilizado esse tutorial: https://book.cakephp.org/3/en/tutorials-and-examples/blog-auth-example/auth.html
+    - Como não foi utilizando os nomes padrões na tabela de Usuários, foi necessário adicionar essas linhas no AppController.php:
+        - ``` php
+            $this->loadComponent('Auth', [
+                'loginAction' => [
+                    'controller' => 'Usuarios',
+                    'action' => 'login'
+                ],
+                'logoutRedirect' => [
+                    'controller' => 'Pages',
+                    'action' => 'display',
+                    'home'
+                ],
+                'authenticate' => [
+                    'Form' => [
+                        'userModel' => 'Usuarios',
+                        'fields' => ['username' => 'email', 'password' => 'senha']
+                    ]
+                ]
+            ]);
+          ```
+          - Dessa forma, avisamos ao Auth que o nosso Model e Controller se chama Usuarios e que os campos de autentificação são o e-mail e senha.
 - Remover o Form do campo 'autor' das views dos Templates, pois eles devem ser configurados automaticamente, dessa forma:
     - Nos controllers:
         - `$jogadore->autor = $this->Auth->user('usuario_id');`
@@ -59,7 +80,7 @@
             ```
     - Na view:
         - `echo $this->Form->control('equipe_casa_id', ['options' => $formOptions]); `
-- Atualizando os Validators das Partidas e dos Usuarios (para não ter equipes com o mesmo 'nome' nem usuarios com o mesmo 'nome_de_usuario' ou 'email'):
+- Atualizando os Validators das Equipes e dos Usuarios (para não ter equipes com o mesmo 'nome' nem usuarios com o mesmo 'nome_de_usuario' ou 'email'):
     - No Model/Table:
         - ``` php
             $validator
@@ -81,10 +102,108 @@
 
 
 - Relatórios:
-    - Todos os Jogos: Time casa, Time visitante, gols casa, gols visitante;
-    - Times com mais vitorias: Time, numero de gols, numero de vitorias;
-    - Jogadores com mais vitorias: Jogador, numero de vitorias.
+    - Foi feito 3 relatórios para serem exportados em .csv:
+        - *Todos os Jogos*: Time casa, Time visitante, gols casa, gols visitante;
+        - *Times com mais vitorias*: Time, numero de gols, numero de vitorias;
+        - *Jogadores com mais vitorias*: Jogador, numero de vitorias.
+    - Criado as querys de cada relatório
+        - *Todos os jogos*:
+            - ``` sql
+                SELECT eq.nome AS Equipe_da_Casa,
+                    eq2.nome AS Equipe_de_Fora,
+                    pt.gols_casa AS Gols_Casa,
+                    pt.gols_fora AS Gols_Fora,
+                    pt.data_partida
+                FROM partidas AS pt
+                    JOIN equipes eq ON eq.equipe_id = pt.equipe_casa_id
+                    JOIN equipes eq2 ON eq2.equipe_id = pt.equipe_fora_id
+                ORDER BY pt.data_partida DESC;
+              ```
+        - *Times com mais vitorias*
+            - ``` sql
+                SELECT eq.nome,
+                    count(
+                        IF(
+                            eq.equipe_id = pt.equipe_casa_id,
+                            IF(pt.gols_casa > pt.gols_fora, 1, NULL),
+                            IF(pt.gols_fora > pt.gols_casa, 1, NULL)
+                        )
+                    ) AS Vitorias,
+                    SUM(
+                        IF(
+                            eq.equipe_id = pt.equipe_casa_id,
+                            pt.gols_casa - pt.gols_fora,
+                            pt.gols_fora - pt.gols_casa
+                        )
+                    ) AS Saldo_de_Gols
+                FROM partidas AS pt
+                    JOIN equipes eq ON eq.equipe_id = pt.equipe_casa_id
+                    OR eq.equipe_id = pt.equipe_fora_id
+                GROUP BY eq.nome
+                ORDER BY Vitorias DESC,
+                    Saldo_de_Gols DESC,
+                    eq.nome ASC;
+              ```
+        - *Jogadores com mais vitorias*
+            - ``` sql
+                SELECT jg.jogador_id as ID,
+                    concat(jg.nome, ' ', jg.sobrenome) as Nome,
+                    count(
+                        IF(
+                            pt.equipe_casa_id = jg.equipe_id,
+                            IF(pt.gols_casa > pt.gols_fora, 1, NULL),
+                            IF(pt.gols_fora > pt.gols_casa, 1, NULL)
+                        )
+                    ) AS Vitorias
+                FROM jogadores AS jg
+                    JOIN partidas AS pt ON pt.equipe_casa_id = jg.equipe_id
+                    OR pt.equipe_fora_id = jg.equipe_id
+                GROUP BY ID
+                ORDER BY Vitorias DESC,
+                    Nome ASC;
+              ```
+    - Instalando a extensão <a ref="https://github.com/FriendsOfCake/cakephp-csvview/tree/3.x">CsvView</a>
+    - Criando o ExportsController
+        - Criando uma função para cada relatório
+            - Exemplo do relatório 1:
+                - ``` php
+                    public function report1() 
+                    {
+                        $this->response->download('report1.csv');
 
+                        $connection = ConnectionManager::get('default');
+
+                        $data = $connection->execute(
+                            "SELECT eq.nome AS Equipe_da_Casa,
+                                eq2.nome AS Equipe_de_Fora,
+                                pt.gols_casa AS Gols_Casa,
+                                pt.gols_fora AS Gols_Fora,
+                                pt.data_partida
+                            FROM partidas AS pt
+                                JOIN equipes eq ON eq.equipe_id = pt.equipe_casa_id
+                                JOIN equipes eq2 ON eq2.equipe_id = pt.equipe_fora_id
+                            ORDER BY pt.data_partida DESC"
+                        )->fetchAll('assoc');
+
+                        $_serialize = 'data';
+                        $_header = ['Equipe_da_Casa', 'Equipe_de_Fora', 'Gols_Casa', 'Gols_Fora', 'Data_da_Partida'];
+
+                        $this->set('_csvEncoding', 'UTF-16');
+                        $this->set(compact('data', '_serialize', '_header'));
+
+                        $this->viewBuilder()->className('CsvView.Csv');
+                    }
+                  ``` 
+    - Atualizando a Home Page:
+        - ``` ctp 
+            <div class="columns larger-4 text-center">
+                <h4> Relatórios </h4>
+                <li> <?= $this->Html->link(__('Todos os Jogos'), ['controller' => 'Exports', 'action' => 'report1']) ?> </li>
+                <li> <?= $this->Html->link(__('Times com mais vitorias'), ['controller' => 'Exports', 'action' => 'report2']) ?>  </li>
+                <li> <?= $this->Html->link(__('Jogadores com mais vitorias'), ['controller' => 'Exports', 'action' => 'report3']) ?>  </li>
+                <br><br>
+            </div>
+          ```
 
 
 
