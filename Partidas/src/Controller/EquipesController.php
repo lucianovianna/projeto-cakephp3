@@ -118,7 +118,7 @@ class EquipesController extends AppController
             $error = 'ERRO: A equipe que você quer deletar está associada com outros items. (Jogadores ou Partidas)';
             $this->Flash->error(__($error));
         }
-        catch (Exception $e) {
+        catch (\Exception $e) {
             $this->Flash->error(__("ERRO: A equipe não pode ser deletada."));
         }
 
